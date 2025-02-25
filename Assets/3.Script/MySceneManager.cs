@@ -24,7 +24,6 @@ public class MySceneManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-
     }
     public void LoadScene(string sceneName)
     {
