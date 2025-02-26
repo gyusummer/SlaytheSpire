@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: 아이콘이랑 엣지 풀링으로 만들것
+
 public class MapDrawer : MonoBehaviour
 {
     public GameObject Room_Button_Prefabs;
@@ -32,6 +34,8 @@ public class MapDrawer : MonoBehaviour
         }
         Debug.Log($"ZeroPoint : {zeroPoint}");
     }
+
+    // 지도에 그려지는 아이콘(종류 구분 못함) 생성
     public void DrawRoomIcons()
     {
         List<AbstractRoom> room_list = dungeon.Rooms;
@@ -51,6 +55,7 @@ public class MapDrawer : MonoBehaviour
             room.SetIcon(icon);
         }
     }
+    // Line Renderer가 캔버스에 안보여서 1자 모양 이미지를 생성하고 회전으로 방향 맞춰줌
     public void DrawEdges()
     {
         foreach(AbstractRoom room in dungeon.Rooms)

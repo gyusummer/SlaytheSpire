@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+// width height grid에서 한칸씩 올라가는 경로를 n번 생성함
+// 시작지점의 최소 개수가 보장됨
+// 정해진 경로를 기반으로 던전을 생성함
+// 교차로가 있으면 없애고 위로 올라가는 경로를 추가함 (Dungeon에서 처리)
 public class DungeonMaker : MonoBehaviour
 {
     public static DungeonMaker Instance = null;
