@@ -6,9 +6,10 @@ public class DungeonMaster : MonoBehaviour
 {
     public static DungeonMaster Instance = null;
     Dungeon dungeon;
-    int floorMax = 15;
-    int roomPerFloor = 7;
-    int pathsMax = 6;
+    int height = 15;
+    int width = 7;
+    int pathsMin = 6;
+    int startCaseMin = 2;
     
     private void Awake()
     {
@@ -21,28 +22,47 @@ public class DungeonMaster : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void GenerateDungeon()
+    public List<int[]> MakePaths()
     {
-        dungeon = new Dungeon(roomPerFloor,floorMax);
-        for(int count = 0; count < pathsMax; count++)
+        List<int[]> paths = new List<int[]>();
+        for(int count = 0; count < pathsMin; count++)
         {
-            int startPoint = Random.Range(0, 7);
+            int startPoint = Random.Range(0, width);
             int[] path = MakeAPath(startPoint);
+            paths.Add(path);
+        }
+        while(!GuaranteeStartPointMin(paths, out List<int> alreadyExist))
+        {
+            int startPoint = Random.Range(0, width);
+            if (alreadyExist.Contains(startPoint)) continue;
+            int[] path = MakeAPath(startPoint);
+            paths.Add(path);
         }
     }
     int[] MakeAPath(int startPoint)
     {
-        int[] path = new int[floorMax];
+        int[] path = new int[height];
         path[0] = startPoint;
         dungeon.AddRoom(startPoint, 0, new AbstractRoom());
         for(int floor = 1; floor < path.Length; floor++)
         {
             int curRoom = path[floor - 1];
             int minRoom = curRoom == 0 ? 0 : curRoom - 1;
-            int maxRoom = curRoom == 6 ? 6 : curRoom + 1;
+            int maxRoom = curRoom == width - 1 ? width - 1 : curRoom + 1;
             path[floor] = Random.Range(minRoom, maxRoom + 1);
         }
         return path;
+    }
+    bool GuaranteeStartPointMin(List<int> _paths, out List<int> alrExist)
+    {
+        List<int> startCase = new List<int>();
+        foreach(int[] path in _paths)
+        {
+            if (!startCase.Contains(path[0])) startCase.Add(path[0]);
+        }
+        alrExist = startCase;
+        if (alrExist.Count < startCaseMin) return false;
+        else return true;
     }
 
 
