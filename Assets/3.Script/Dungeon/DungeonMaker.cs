@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DungeonMaster : MonoBehaviour
+public class DungeonMaker : MonoBehaviour
 {
-    public static DungeonMaster Instance = null;
+    public static DungeonMaker Instance = null;
     Dungeon dungeon;
 
     int height = 15;
