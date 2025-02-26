@@ -25,7 +25,7 @@ public class Dungeon
         }
     }
 
-    public Dungeon(int width,int height)
+    public Dungeon(int width, int height)
     {
         isThereRoom = new bool[width, height];
         room_arr = new AbstractRoom[width, height];
@@ -66,7 +66,7 @@ public class Dungeon
         }
 
         // 경로 추가
-        if (isThereRoom[TopX,TopY] && isThereRoom[BottomX, BottomY])
+        if (isThereRoom[TopX, TopY] && isThereRoom[BottomX, BottomY])
         {
             room_arr[BottomX, BottomY].AddUpStair(room_arr[TopX, TopY]);
             room_arr[TopX, TopY].AddDownStair(room_arr[BottomX, BottomY]);
