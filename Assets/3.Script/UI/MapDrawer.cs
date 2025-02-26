@@ -58,17 +58,20 @@ public class MapDrawer : MonoBehaviour
             foreach(AbstractRoom upRoom in room.UpRoom)
             {
                 GameObject edge = Instantiate(Map_Line_Prefabs, Grid_Edges.transform, true);
-                edge.transform.position = room.Icon.transform.position + (Vector3) variability * 2;
+                edge.transform.position = (room.Icon.transform.position + upRoom.Icon.transform.position) * 0.5f;
                 if (edge.TryGetComponent<RectTransform>(out RectTransform lrt))
                 {
-                    Vector2 sizeDelta = room.Icon.transform.position - upRoom.Icon.transform.position;
-                    if(sizeDelta.x <= 0)
-                    {
+                    Vector2 diff = upRoom.Icon.transform.position - room.Icon.transform.position;
+                    float distance = diff.magnitude;
+                    Vector2 d = lrt.sizeDelta;
+                    d.x = distance;
+                    lrt.sizeDelta = d;
 
-                    }
-                    else
+                    Vector2 normal = diff.normalized;
+                    float angle = Vector2.Angle(Vector2.right, normal);
+                    edge.transform.rotation = Quaternion.Euler(0, 0, angle);
                 }
-                
+
             }
         }
 
