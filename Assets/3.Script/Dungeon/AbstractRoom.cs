@@ -9,6 +9,11 @@ public class AbstractRoom : IEquatable<AbstractRoom>
     int posY;
     public int X => posX;
     public int Y => posY;
+
+    GameObject icon;
+
+    public GameObject Icon => icon;
+
     List<AbstractRoom> upRoom;
     List<AbstractRoom> downRoom;
 
@@ -21,6 +26,10 @@ public class AbstractRoom : IEquatable<AbstractRoom>
         posY = y;
         upRoom = new List<AbstractRoom>();
         downRoom = new List<AbstractRoom>();
+    }
+    public void SetIcon(GameObject obj)
+    {
+        icon = obj;
     }
     public bool HasUpStair(int x, int y)
     {

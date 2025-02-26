@@ -30,6 +30,7 @@ public class DungeonMaker : MonoBehaviour
             MakeADungeon();
             mapDrawer.Init(dungeon);
             mapDrawer.DrawRoomIcons();
+            mapDrawer.DrawEdges();
         }
         #endregion
     }

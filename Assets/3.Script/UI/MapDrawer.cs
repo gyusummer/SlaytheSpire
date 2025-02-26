@@ -5,7 +5,9 @@ using UnityEngine;
 public class MapDrawer : MonoBehaviour
 {
     public GameObject Room_Button_Prefabs;
-    public GameObject grid;
+    public GameObject Map_Line_Prefabs;
+    public GameObject Grid_Rooms;
+    public GameObject Grid_Edges;
     public GameObject Grid_BottomLeft;
     public GameObject Grid_TopRight;
     float xGap;
@@ -36,7 +38,7 @@ public class MapDrawer : MonoBehaviour
         foreach(AbstractRoom room in room_list)
         {
             // 정렬된 그리드 위치에 생성
-            GameObject icon = Instantiate(Room_Button_Prefabs, grid.transform);
+            GameObject icon = Instantiate(Room_Button_Prefabs, Grid_Rooms.transform);
             icon.transform.position = new Vector2(zeroPoint.x + xGap * room.X, zeroPoint.y + yGap * room.Y);
 
             // 약간의 위치 움직이기
@@ -44,7 +46,31 @@ public class MapDrawer : MonoBehaviour
             float curY = icon.transform.position.y;
             float newX = Random.Range(curX - variability.x, curX + variability.x);
             float newY = Random.Range(curY - variability.y, curY + variability.y);
-            icon.transform.position = new Vector2(newX, newY);
+            Vector2 newPos = new Vector2(newX, newY);
+            icon.transform.position = newPos;
+            room.SetIcon(icon);
         }
+    }
+    public void DrawEdges()
+    {
+        foreach(AbstractRoom room in dungeon.Rooms)
+        {
+            foreach(AbstractRoom upRoom in room.UpRoom)
+            {
+                GameObject edge = Instantiate(Map_Line_Prefabs, Grid_Edges.transform, true);
+                edge.transform.position = room.Icon.transform.position + (Vector3) variability * 2;
+                if (edge.TryGetComponent<RectTransform>(out RectTransform lrt))
+                {
+                    Vector2 sizeDelta = room.Icon.transform.position - upRoom.Icon.transform.position;
+                    if(sizeDelta.x <= 0)
+                    {
+
+                    }
+                    else
+                }
+                
+            }
+        }
+
     }
 }
