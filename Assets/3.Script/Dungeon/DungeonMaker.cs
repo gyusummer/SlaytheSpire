@@ -11,6 +11,8 @@ public class DungeonMaker : MonoBehaviour
     int width = 7;
     int pathsMin = 4;
     int startCaseMin = 2;
+    public int Height => height;
+    public int Width => width;
 
     private void Awake()
     {
@@ -22,9 +24,17 @@ public class DungeonMaker : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        #region test
+        if(TryGetComponent<MapDrawer>(out MapDrawer mapDrawer))
+        {
+            MakeADungeon();
+            mapDrawer.Init(dungeon);
+            mapDrawer.DrawRoomIcons();
+        }
+        #endregion
     }
 
-    public void MakeADungeon()
+    public Dungeon MakeADungeon()
     {
         dungeon = new Dungeon(width, height);
         List<int[]> paths = MakePaths();
@@ -40,6 +50,7 @@ public class DungeonMaker : MonoBehaviour
                 }
             }
         }
+        return dungeon;
         //dungeon.Prune();
     }
     public List<int[]> MakePaths()
