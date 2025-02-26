@@ -9,7 +9,7 @@ public class DungeonMaster : MonoBehaviour
 
     int height = 15;
     int width = 7;
-    int pathsMin = 6;
+    int pathsMin = 4;
     int startCaseMin = 2;
     
     private void Awake()
@@ -22,6 +22,25 @@ public class DungeonMaster : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void MakeADungeon()
+    {
+        dungeon = new Dungeon(width, height);
+        List<int[]> paths = MakePaths();
+        foreach(int[] path in paths)
+        {
+            for(int y = 0; y < height; y++)
+            {
+                int x = path[y];
+                dungeon.MakeARoom(x,y);
+                if(y != 0)
+                {
+                    dungeon.MakeAPath(x, y, path[y - 1], y - 1);
+                }
+            }
+        }
+        //dungeon.Prune();
     }
     public List<int[]> MakePaths()
     {
@@ -39,12 +58,12 @@ public class DungeonMaster : MonoBehaviour
             int[] path = MakeAPath(startPoint);
             paths.Add(path);
         }
+        return paths;
     }
     int[] MakeAPath(int startPoint)
     {
         int[] path = new int[height];
         path[0] = startPoint;
-        dungeon.AddRoom(startPoint, 0, new AbstractRoom());
         for(int floor = 1; floor < path.Length; floor++)
         {
             int curRoom = path[floor - 1];
@@ -54,7 +73,7 @@ public class DungeonMaster : MonoBehaviour
         }
         return path;
     }
-    bool GuaranteeStartPointMin(List<int> _paths, out List<int> alrExist)
+    bool GuaranteeStartPointMin(List<int[]> _paths, out List<int> alrExist)
     {
         List<int> startCase = new List<int>();
         foreach(int[] path in _paths)
@@ -68,35 +87,18 @@ public class DungeonMaster : MonoBehaviour
 
 
     #region Test
-    List<int[]> testPath_list = new List<int[]>();
-    int[] testPath;
     public void Test()
     {
-        testPath = MakeAPath(Random.Range(0,7));
-        string PathStr = "";
-        foreach(int roomNum in testPath)
+        MakeADungeon();
+        List<AbstractRoom> room_list = dungeon.Rooms;
+        Debug.Log(room_list.Count);
+        foreach(AbstractRoom room in room_list)
         {
-            PathStr = PathStr + " " + roomNum;
-        }
-        Debug.Log(PathStr);
-        testPath_list.Add(testPath);
-    }
-    private void OnDrawGizmos()
-    {
-        if(testPath_list.Count > 0)
-        {
-            foreach(int[] path in testPath_list)
+            foreach(AbstractRoom uproom in room.UpRoom)
             {
-                Gizmos.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-                for (int y = 1; y < path.Length; y++)
-                {
-                    int x = path[y];
-                    int beforeX = path[y - 1];
-                    Vector2 curPoint = new Vector2(x, y);
-                    Vector2 beforePoint = new Vector2(beforeX, y - 1);
-                    Gizmos.DrawLine(beforePoint, curPoint);
-                }
+                Debug.DrawLine(new Vector2(room.X, room.Y), new Vector2(uproom.X, uproom.Y), Color.white, 3f);
             }
+            
         }
     }
     #endregion
