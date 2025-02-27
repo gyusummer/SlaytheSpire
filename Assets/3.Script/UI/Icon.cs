@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Icon : MonoBehaviour
 {
@@ -34,13 +35,13 @@ public class Icon : MonoBehaviour
     {
         TargetGraphic.transform.rotation = Quaternion.identity;
     }
-    public void Tilt()
-    {
-        // 0도에서 -howRot ~ +howRot 왔다갔다
-        Quaternion rot = TargetGraphic.transform.rotation;
-        rot.z = rot.z + 1f * tiltDir;
-        TargetGraphic.transform.rotation = rot;
-        if (rot.z > howRot || rot.z < howRot) tiltDir *= -1;
-        Debug.Log(tiltDir);
-    }
+    //public void Tilt()
+    //{
+    //    // 0도에서 -howRot ~ +howRot 왔다갔다
+    //    Quaternion rot = TargetGraphic.transform.rotation;
+    //    Quaternion.Euler(0, 0, 1f * tiltDir);
+    //    rot.z = rot.z + Quaternion.Euler(0, 0, 1f * tiltDir).z;
+    //    TargetGraphic.transform.rotation = rot;
+    //    Debug.Log(rot.z);
+    //}
 }
