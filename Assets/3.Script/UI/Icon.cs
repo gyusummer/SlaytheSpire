@@ -16,7 +16,6 @@ public class Icon : MonoBehaviour
         if (howBigger == 0) howBigger = 1.2f;
         if (howRot == 0) howRot = 30f;
         if (TargetGraphic == null) TargetGraphic = gameObject;
-        Debug.Log(TargetGraphic);
         initSize = TargetGraphic.transform.localScale;
     }
     public void GrowIconSize()
