@@ -5,6 +5,7 @@ using UnityEngine;
 public class DungeonUIManager : MonoBehaviour
 {
     public GameObject MapScroll;
+    GameObject curUI;
     public void OnOffMap()
     {
         MapScroll.SetActive(!MapScroll.activeSelf);
