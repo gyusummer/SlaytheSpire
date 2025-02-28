@@ -43,7 +43,7 @@ public class MySceneManager : MonoBehaviour
     {
         isFading = true;
 
-        // TODO: 페이드 아웃 구현
+        // TODO: 페이드 인 아웃 구현
 
         isFading = false;
     }
