@@ -4,9 +4,7 @@ using UnityEngine;
 
 public abstract class AbstractMortals : MonoBehaviour
 {
-    int hp;
+    int maxHp;
+    int curHp;
     List<AbstractState> states;
-
-    protected abstract void TakeDamage();
-    protected abstract void TakeHeal();
 }

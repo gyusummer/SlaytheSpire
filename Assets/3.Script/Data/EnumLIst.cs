@@ -37,10 +37,16 @@ public enum CardTypes
     Status,
     Curse
 }
+public enum CardRarerities
+{
+    Common,
+    Uncommon,
+    Rare
+}
 public enum TargetTypes
 {
     Self,
-    Targetting,
+    Single,
     AllEnemy,
     All
 }

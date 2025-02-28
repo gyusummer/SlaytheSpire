@@ -32,7 +32,7 @@ public class MapDrawer : MonoBehaviour
         {
             variability = r2.sizeDelta / 2;
         }
-        Debug.Log($"ZeroPoint : {zeroPoint}");
+        //Debug.Log($"ZeroPoint : {zeroPoint}");
     }
 
     // 지도에 그려지는 아이콘(종류 구분 못함) 생성

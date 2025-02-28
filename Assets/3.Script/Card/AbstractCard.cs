@@ -1,10 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class AbstractCard : MonoBehaviour
+public abstract class AbstractCard : MonoBehaviour
 {
-    public new string name;
-    public int cost;
-    public CardColors color;
-    public TargetTypes targetType;
+    [HideInInspector] public new string name;
+    [HideInInspector] public int baseCost;
+    [HideInInspector] public int upgCost;
+    [HideInInspector] public int curCost;
+    [HideInInspector] public int baseEffValue;
+    [HideInInspector] public int upgEffValue;
+    [HideInInspector] public int curEffValue;
+    [HideInInspector] public CardColors color;
+    [HideInInspector] public TargetTypes targetType;
+    [HideInInspector] public string description;
+
+    public abstract void SetDescription();
 }

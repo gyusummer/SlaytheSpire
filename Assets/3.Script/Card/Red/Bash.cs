@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Bash : AbstractCard
 {
-    
+    public override void SetDescription()
+    {
+
+    }
 }

@@ -6,9 +6,14 @@ using UnityEngine;
 public class TestScript : MonoBehaviour
 {
     int seed;
-    private void Awake()
+    private void Start()
     {
         seed = Environment.TickCount;
+        if(TryGetComponent(out AbstractCard abstractCard))
+        {
+            Debug.Log(abstractCard.GetType());
+            Debug.Log(abstractCard.description);
+        }
     }
 
     public void RandomNum()
