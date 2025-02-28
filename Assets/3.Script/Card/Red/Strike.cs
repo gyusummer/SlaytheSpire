@@ -25,4 +25,8 @@ public class Strike : AbstractCard
         description = $"피해를 {curEffValue} 줍니다.";
     }
 
+    public override void PlayACard()
+    {
+        
+    }
 }

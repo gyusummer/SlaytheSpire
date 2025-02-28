@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public abstract class AbstractCard : MonoBehaviour
 {
+    [HideInInspector] public CardData cardData;
     [HideInInspector] public new string name;
     [HideInInspector] public int baseCost;
     [HideInInspector] public int upgCost;
@@ -15,4 +16,5 @@ public abstract class AbstractCard : MonoBehaviour
     [HideInInspector] public string description;
 
     public abstract void SetDescription();
+    public abstract void PlayACard();
 }
