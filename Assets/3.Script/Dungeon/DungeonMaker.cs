@@ -5,9 +5,9 @@ using UnityEngine;
 // 시작지점의 최소 개수가 보장됨
 // 정해진 경로를 기반으로 던전을 생성함
 // 교차로가 있으면 없애고 위로 올라가는 경로를 추가함 (Dungeon에서 처리)
-public class DungeonMaker : MonoBehaviour
+public class DungeonMaker : Singleton<DungeonMaker>
 {
-    public static DungeonMaker Instance = null;
+    //public static DungeonMaker Instance = null;
     Dungeon dungeon;
 
     int height = 15;
@@ -17,18 +17,18 @@ public class DungeonMaker : MonoBehaviour
     public int Height => height;
     public int Width => width;
 
-    private void Awake()
+    private void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
         #region TEST
-        if(TryGetComponent<MapDrawer>(out MapDrawer mapDrawer))
+        if (TryGetComponent<MapDrawer>(out MapDrawer mapDrawer))
         {
             MakeADungeon();
             mapDrawer.Init(dungeon);

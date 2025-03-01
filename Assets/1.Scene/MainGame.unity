@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapCanvas: {fileID: 1369320401773912846}
+  Player: {fileID: 1930409322}
 --- !u!1 &808775941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,6 +1186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardPrefab: {fileID: 7212483277534861617, guid: 2c72d1fcf1e4c2e49b2cb8a7ff5aaf59, type: 3}
+  RedCommon: {fileID: 11400000, guid: b8111e2b4f3fb6947a6290954edf8716, type: 2}
 --- !u!4 &991926597
 Transform:
   m_ObjectHideFlags: 0
@@ -1296,7 +1298,7 @@ GameObject:
   - component: {fileID: 1068740010}
   - component: {fileID: 1068740012}
   m_Layer: 0
-  m_Name: DungeonManager
+  m_Name: DungeonMaster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1804,9 +1806,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1820446229}
   - component: {fileID: 1820446228}
-  - component: {fileID: 1820446230}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TestObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1841,31 +1842,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1820446230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820446227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1afb9873fb038d240807ba3579323abb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: b05f95f625adc404695aa598dd876760, type: 2}
-  name: 
-  type: 0
-  baseCost: 0
-  upgCost: 0
-  curCost: 0
-  baseEffValue: 0
-  upgEffValue: 0
-  curEffValue: 0
-  color: 0
-  targetType: 0
-  description: 
-  illust: {fileID: 0}
 --- !u!224 &1831367109 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8954230299466383037, guid: e44213163c72e674fb195d06b0372fdf, type: 3}
@@ -2169,9 +2145,10 @@ GameObject:
   - component: {fileID: 1930409325}
   - component: {fileID: 1930409324}
   - component: {fileID: 1930409323}
+  - component: {fileID: 1930409326}
   m_Layer: 0
-  m_Name: Ironclad
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2264,6 +2241,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1930409326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930409322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eda003ee93dd2649ae3e1e687d18e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deck: []
 --- !u!1 &1972926645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,39 +2605,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 361408339063493233, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 361408339063493233, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 361408339063493233, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 361408339063493233, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -2700
       objectReference: {fileID: 0}
     - target: {fileID: 1815235101534484270, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 3240
       objectReference: {fileID: 0}
     - target: {fileID: 2479038564718663604, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2479038564718663604, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2479038564718663604, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 2479038564718663604, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1620
       objectReference: {fileID: 0}
     - target: {fileID: 5147810293240934591, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_Pivot.x
@@ -2733,21 +2723,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5225099578060744440, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9200529322340950650, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9200529322340950650, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9200529322340950650, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 9200529322340950650, guid: 8a1fda99c32b94b4fa5ee3867129ae76, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -540
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

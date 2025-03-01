@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardMaker : MonoBehaviour
+public class CardMaker : Singleton<CardMaker>
 {
-    public GameObject CardPrefab;
-    public CardDatabase RedCommon;
-
+    [SerializeField] GameObject CardPrefab;
+    [SerializeField] CardDatabase RedCommon;
 
     public Card MakeACard(int cardID)
     {
-        Card card = new Card();
-        card.Init(RedCommon.cardList[cardID]);
+        GameObject g = Instantiate(CardPrefab);
+        Card c = g.AddComponent<Card>();
+        c.Init(RedCommon.cardList[cardID]);
+        g.AddComponent<CardUI>();
 
-        return card;
+        return c;
     }
 }

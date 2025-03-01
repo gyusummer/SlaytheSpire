@@ -12,13 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863de85651187a64f8da5e7af9e6370f, type: 3}
   m_Name: Bash
   m_EditorClassIdentifier: 
-  _name: 
+  _name: "\uAC15\uD0C0"
   _cardType: 0
-  _baseCost: 0
-  _upgCost: 0
-  _baseEffValue: 0
-  _upgEffValue: 0
+  _baseCost: 2
+  _upgCost: 2
   _color: 0
-  _targetType: 0
-  _description: 
-  _illust: {fileID: 0}
+  _illust: {fileID: 21300000, guid: 41240ddb3aa3b624ba17b50a39b5b586, type: 3}
+  _effects:
+  - targetType: 1
+    effectValue: 8
+    effectType: 0
+    status: 0
+    description: "\uD53C\uD574\uB97C {0} \uC90D\uB2C8\uB2E4."
+    target: []
+  - targetType: 1
+    effectValue: 2
+    effectType: 2
+    status: 1
+    description: "\uCDE8\uC57D\uC744 {0} \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    target: []

@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class DungeonUIManager : MonoBehaviour
 {
-    public GameObject MapCanvas;
     GameObject curUI;
+    public GameObject MapCanvas;
+    public GameObject Player;
+    AbstractPlayerCharacter player;
+
+    private void Start()
+    {
+        player = Player.GetComponent<AbstractPlayerCharacter>();
+    }
     public void OnOffMap()
     {
         MapCanvas.SetActive(!MapCanvas.activeSelf);
     }
     public void OpenWholeDeck()
     {
-
+        Debug.Log(player.deck.Count);
     }
 }

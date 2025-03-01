@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a771b2cdacd627d419e78c51af5137ab, type: 3}
   m_Name: RedCommon
   m_EditorClassIdentifier: 
+  cardList:
+  - {fileID: 11400000, guid: b05f95f625adc404695aa598dd876760, type: 2}
+  - {fileID: 11400000, guid: 59f759043cb079e44961dbb509cb24a1, type: 2}
+  - {fileID: 11400000, guid: d10170a0dd6c1754eb202a66b2100c60, type: 2}

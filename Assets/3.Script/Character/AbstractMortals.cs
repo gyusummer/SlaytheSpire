@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class AbstractMortals : MonoBehaviour
 {
-    int maxHp;
-    int curHp;
-    int block = 0;
-    List<AbstractStatus> statusList;
-    bool isDead = false;
+    protected int maxHp;
+    protected int curHp;
+    protected int block = 0;
+    protected List<AbstractStatus> statusList;
+    protected bool isDead = false;
 
     public void GetDamage(int damage)
     {

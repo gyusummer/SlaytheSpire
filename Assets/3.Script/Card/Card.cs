@@ -29,7 +29,8 @@ public class Card : MonoBehaviour
     {
         foreach(Effect e in effects)
         {
-            description = $"{description}\n{e.description}";
+            string dsc = String.Format(e.description, e.effectValue);
+            description = $"{description}{dsc}\n";
         }
     }
     public void PlayACard()

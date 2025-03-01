@@ -20,5 +20,6 @@ public class CardData : ScriptableObject
     [SerializeField] Sprite _illust;
     public Sprite Illust => _illust;
 
-    public List<Effect> Effects;
+    [SerializeField] private List<Effect> _effects;
+    public List<Effect> Effects => _effects;
 }
