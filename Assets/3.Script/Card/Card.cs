@@ -13,6 +13,7 @@ public class Card : MonoBehaviour
     [HideInInspector] public string description;
     [HideInInspector] public Sprite illust;
     [HideInInspector] public List<Effect> effects;
+    bool isTargetting;
     public void Init(CardData d)
     {
         cardData = d;
@@ -24,6 +25,7 @@ public class Card : MonoBehaviour
         illust = cardData.Illust;
         effects = cardData.Effects;
         SetDescription();
+        SetTargetType();
     }
     public void SetDescription()
     {
@@ -33,8 +35,19 @@ public class Card : MonoBehaviour
             description = $"{description}{dsc}\n";
         }
     }
+    void SetTargetType()
+    {
+        foreach (Effect e in effects)
+        {
+            if(e.targetType == TargetTypes.Single)
+            {
+                isTargetting = true;
+                break;
+            }
+        }
+    }
     public void PlayACard()
     {
-
+        
     }
 }
