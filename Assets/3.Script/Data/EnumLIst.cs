@@ -1,3 +1,14 @@
+public enum Effects
+{
+    Damage,
+    Block,
+    GiveStatus
+}
+public enum Statuses
+{
+    None,
+    Vulnerable,
+}
 public enum Relics
 {
     Burning_Blood,
@@ -27,7 +38,7 @@ public enum CardColors
 {
     Red,
     Colorless,
-    BlackCard
+    Black
 }
 public enum CardTypes
 {
@@ -50,7 +61,13 @@ public enum TargetTypes
     AllEnemy,
     All
 }
-public enum RedCards
+public enum RedCommonCard
+{
+    Strike,
+    Defend,
+    Bash
+}
+public enum ColorlessCards
 {
 
 }
@@ -58,11 +75,11 @@ public enum BlackCards
 {
 
 }
-public enum ColorlessCards
+public enum Monsters
 {
 
 }
-public enum Monsters
+public enum Elites
 {
 
 }

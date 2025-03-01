@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DungeonUIManager : MonoBehaviour
 {
-    public GameObject MapScroll;
+    public GameObject MapCanvas;
     GameObject curUI;
     public void OnOffMap()
     {
-        MapScroll.SetActive(!MapScroll.activeSelf);
+        MapCanvas.SetActive(!MapCanvas.activeSelf);
     }
     public void OpenWholeDeck()
     {

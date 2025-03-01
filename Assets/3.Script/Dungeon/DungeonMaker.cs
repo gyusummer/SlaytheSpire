@@ -27,7 +27,7 @@ public class DungeonMaker : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        #region test
+        #region TEST
         if(TryGetComponent<MapDrawer>(out MapDrawer mapDrawer))
         {
             MakeADungeon();
@@ -101,7 +101,7 @@ public class DungeonMaker : MonoBehaviour
     }
 
 
-    #region Test
+    #region TEST
     public void Test()
     {
         MakeADungeon();

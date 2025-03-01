@@ -1065,7 +1065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5cddc5ee946704f8311698a8855394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MapScroll: {fileID: 1369320401773912846}
+  MapCanvas: {fileID: 1369320401773912846}
 --- !u!1 &808775941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,6 +1794,78 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1820446227
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1820446229}
+  - component: {fileID: 1820446228}
+  - component: {fileID: 1820446230}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1820446228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820446227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad44549f4c418f94e8e1d44bbb2ca9e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 7212483277534861617, guid: 2c72d1fcf1e4c2e49b2cb8a7ff5aaf59, type: 3}
+  canvas: {fileID: 743985430}
+--- !u!4 &1820446229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820446227}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1820446230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820446227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1afb9873fb038d240807ba3579323abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: b05f95f625adc404695aa598dd876760, type: 2}
+  name: 
+  type: 0
+  baseCost: 0
+  upgCost: 0
+  curCost: 0
+  baseEffValue: 0
+  upgEffValue: 0
+  curEffValue: 0
+  color: 0
+  targetType: 0
+  description: 
+  illust: {fileID: 0}
 --- !u!224 &1831367109 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8954230299466383037, guid: e44213163c72e674fb195d06b0372fdf, type: 3}
@@ -2949,3 +3021,4 @@ SceneRoots:
   - {fileID: 1068740011}
   - {fileID: 743985434}
   - {fileID: 991926597}
+  - {fileID: 1820446229}

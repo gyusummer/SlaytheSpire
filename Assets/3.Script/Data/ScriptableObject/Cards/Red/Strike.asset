@@ -20,5 +20,5 @@ MonoBehaviour:
   _upgEffValue: 9
   _color: 0
   _targetType: 1
-  _description: "$\"\uD53C\uD574\uB97C {v} \uC90D\uB2C8\uB2E4.\""
+  _description: "\uD53C\uD574\uB97C {0} \uC90D\uB2C8\uB2E4."
   _illust: {fileID: 21300000, guid: a93aacaf229efbc409611f5459758eb1, type: 3}
