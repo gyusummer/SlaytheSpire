@@ -27,9 +27,5 @@ public class Ironclad : AbstractPlayerCharacter
         {
             deck.Add(CardMaker.Instance.MakeACard());
         }
-        foreach(AbstractCard c in deck)
-        {
-            Debug.Log(c.name);
-        }
     }
 }

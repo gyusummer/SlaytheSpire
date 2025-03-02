@@ -36,10 +36,11 @@ public class CardUI : MonoBehaviour
             nameT.text = card.name;
             costT.text = card.cost.ToString();
         }
+        gameObject.SetActive(false);
     }
     void ChangeImages()
     {
-        Globals.GetCardUIAddress(card.type, out string backPath, out string framePath);
+        CardDictionary.GetCardUIAddress(card.type, out string backPath, out string framePath);
         Addressables.LoadAssetAsync<Sprite>(backPath).Completed += ChangeBack;
         Addressables.LoadAssetAsync<Sprite>(framePath).Completed += ChangeFrame;
         Addressables.LoadAssetAsync<Texture2D>(card.illuPath).Completed += ChangeIllust;
