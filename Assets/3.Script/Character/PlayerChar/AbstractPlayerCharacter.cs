@@ -7,7 +7,7 @@ public class AbstractPlayerCharacter : AbstractMortals
     protected int money = 99;
     protected Potion[] potions = new Potion[3];
     protected List<AbstractRelic> relics;
-    public List<Card> deck;
-    protected List<Card> drawPile;
-    protected List<Card> DiscardPile;
+    public List<AbstractCard> deck;
+    protected List<AbstractCard> drawPile;
+    protected List<AbstractCard> DiscardPile;
 }

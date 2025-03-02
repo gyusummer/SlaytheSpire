@@ -8,7 +8,7 @@ public class Icon : MonoBehaviour
     public GameObject TargetGraphic;
     public float howBigger;
     public float howRot;
-    int tiltDir = 1;
+    //int tiltDir = 1;
     Vector2 initSize;
 
     private void OnEnable()

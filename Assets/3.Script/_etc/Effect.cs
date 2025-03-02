@@ -6,13 +6,13 @@ using UnityEngine;
 [Serializable]
 public class Effect
 {
-    public TargetTypes targetType;
-    public int effectValue;
-    public Effects effectType;
-    public Statuses status;
-    public string description;
-    [HideInInspector]
-    public List<AbstractMortals> target = new List<AbstractMortals>();
+    //public TargetTypes targetType;
+    //public int effectValue;
+    //public Effects effectType;
+    //public Statuses status;
+    //public string description;
+    //[HideInInspector]
+    //public List<AbstractMortals> target = new List<AbstractMortals>();
 
     //public Effect()
     //{
@@ -43,21 +43,21 @@ public class Effect
     //    }
     //    description = $"{targetStr} {description}";
     //}
-    public void invoke()
-    {
-        switch (effectType)
-        {
-            case Effects.Damage:
-                DealDamage(target,effectValue);
-                break;
-            case Effects.Block:
-                GiveBlock(target, effectValue);
-                break;
-            case Effects.GiveStatus:
-                GiveStatus(target, effectValue, status);
-                break;
-        }
-    }
+    //public void invoke()
+    //{
+    //    switch (effectType)
+    //    {
+    //        case Effects.Damage:
+    //            DealDamage(target,effectValue);
+    //            break;
+    //        case Effects.Block:
+    //            GiveBlock(target, effectValue);
+    //            break;
+    //        case Effects.GiveStatus:
+    //            GiveStatus(target, effectValue, status);
+    //            break;
+    //    }
+    //}
     public static void DealDamage(List<AbstractMortals> ts, int v)
     {
         foreach (AbstractMortals t in ts)

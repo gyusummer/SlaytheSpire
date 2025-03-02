@@ -12,16 +12,20 @@ public class Ironclad : AbstractPlayerCharacter
     {
         maxHp = 80;
         curHp = maxHp;
-        for(int n = 0; n < 5; n++)
+        //for(int n = 0; n < 5; n++)
+        //{
+        //    AbstractCard c = CardMaker.Instance.MakeACard(0);
+        //    deck.Add(c);
+        //}
+        //for(int n = 0; n < 4; n++)
+        //{
+        //    AbstractCard c = CardMaker.Instance.MakeACard(1);
+        //    deck.Add(c);
+        //}
+        //deck.Add(CardMaker.Instance.MakeACard(2));
+        for(int n = 0; n < 10; n++)
         {
-            Card c = CardMaker.Instance.MakeACard(0);
-            deck.Add(c);
+            deck.Add(CardMaker.Instance.MakeACard());
         }
-        for(int n = 0; n < 4; n++)
-        {
-            Card c = CardMaker.Instance.MakeACard(1);
-            deck.Add(c);
-        }
-        deck.Add(CardMaker.Instance.MakeACard(2));
     }
 }
