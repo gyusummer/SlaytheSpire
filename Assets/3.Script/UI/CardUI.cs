@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
+    AbstractCard card;
     DungeonUIManager ui;
+    Image[] cardImages;
     RawImage cardIllust;
     Text descriptT;
     Text typeT;
@@ -18,29 +20,57 @@ public class CardUI : MonoBehaviour
     {
         ui = FindAnyObjectByType<DungeonUIManager>();
         transform.SetParent(ui.transform, false);
-        if (TryGetComponent(out AbstractCard c))
+        if (TryGetComponent(out card))
         {
+            cardImages = GetComponentsInChildren<Image>();
             cardIllust = GetComponentInChildren<RawImage>();
-
-            Addressables.LoadAssetAsync<Texture2D>(c.illuPath).Completed += ChangeIllust;
+            ChangeImages();
+            
             Text[] textBoxes = GetComponentsInChildren<Text>();
             descriptT = textBoxes[0];
             typeT = textBoxes[1];
             nameT = textBoxes[2];
             costT = textBoxes[3];
-            descriptT.text = c.description;
-            typeT.text = Enum.GetName(typeof(CardTypes),c.type);
-            nameT.text = c.name;
-            costT.text = c.cost.ToString();
+            descriptT.text = card.description;
+            typeT.text = Enum.GetName(typeof(CardTypes), card.type);
+            nameT.text = card.name;
+            costT.text = card.cost.ToString();
         }
     }
-    void ChangeIllust(AsyncOperationHandle<Texture2D> op)
+    void ChangeImages()
     {
-        if (op.Result == null)
+        Globals.GetCardUIAddress(card.type, out string backPath, out string framePath);
+        Addressables.LoadAssetAsync<Sprite>(backPath).Completed += ChangeBack;
+        Addressables.LoadAssetAsync<Sprite>(framePath).Completed += ChangeFrame;
+        Addressables.LoadAssetAsync<Texture2D>(card.illuPath).Completed += ChangeIllust;
+
+
+        void ChangeIllust(AsyncOperationHandle<Texture2D> op)
         {
-            Debug.LogError("no sprites here.");
-            return;
+            if (op.Result == null)
+            {
+                Debug.LogError("no sprites here.");
+                return;
+            }
+            cardIllust.texture = op.Result;
         }
-        cardIllust.texture = op.Result;
+        void ChangeBack(AsyncOperationHandle<Sprite> op)
+        {
+            if (op.Result == null)
+            {
+                Debug.LogError("no sprites here.");
+                return;
+            }
+            cardImages[0].sprite = op.Result;
+        }
+        void ChangeFrame(AsyncOperationHandle<Sprite> op)
+        {
+            if (op.Result == null)
+            {
+                Debug.LogError("no sprites here.");
+                return;
+            }
+            cardImages[1].sprite = op.Result;
+        }
     }
 }
