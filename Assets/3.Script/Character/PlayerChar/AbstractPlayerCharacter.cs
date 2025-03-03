@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class AbstractPlayerCharacter : AbstractMortals
 {
+    public static AbstractPlayerCharacter Instance = null;
+
     public delegate void CardAddedHandler(CardUI cardUi);
     public event CardAddedHandler OnCardAdded;
     public int money { get; protected set; } = 99;
@@ -14,6 +16,17 @@ public class AbstractPlayerCharacter : AbstractMortals
     public List<AbstractCard> deck {get; protected set; } = new List<AbstractCard>();
     public List<AbstractCard> drawPile {get; protected set; } = new List<AbstractCard>();
     public List<AbstractCard> DiscardPile {get; protected set; } = new List<AbstractCard>();
+    protected void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public virtual void AddCardToDeck(AbstractCard card)
     {
         deck.Add(card);

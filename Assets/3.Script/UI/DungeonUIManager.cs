@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DungeonUIManager : MonoBehaviour
 {
-    public AbstractPlayerCharacter player;
+    public AbstractPlayerCharacter Player;
     public GameObject MapPanel;
     public GameObject DeckPanel;
     public GameObject DeckContent;
@@ -15,7 +15,7 @@ public class DungeonUIManager : MonoBehaviour
 
     private void Start()
     {
-        player.OnCardAdded += AddCardToPlayerDeck;
+        Player.OnCardAdded += AddCardToPlayerDeck;
     }
     public void ToggleMap()
     {
@@ -51,14 +51,14 @@ public class DungeonUIManager : MonoBehaviour
     }
     public void UpdatePlayerHp()
     {
-        playerHp.text = player.curHp.ToString();
+        playerHp.text = Player.curHp.ToString();
     }
     public void UpdatePlayerMoney()
     {
-        playerMoney.text = player.money.ToString();
+        playerMoney.text = Player.money.ToString();
     }
     public void UpdatePlayerDeckCount()
     {
-        deckCount.text = player.deck.Count.ToString();
+        deckCount.text = Player.deck.Count.ToString();
     }
 }

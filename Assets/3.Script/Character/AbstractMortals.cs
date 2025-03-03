@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractMortals : Singleton<AbstractMortals>
+public abstract class AbstractMortals : MonoBehaviour
 {
     public int maxHp { get; protected set; }
     public int curHp { get; protected set; }
