@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ironclad : AbstractPlayerCharacter
+public class Ironclad : Player
 {
     private void Start()
     {
@@ -11,8 +11,8 @@ public class Ironclad : AbstractPlayerCharacter
     }
     public void Init()
     {
-        maxHp = 80;
-        curHp = maxHp;
+        MaxHp = 80;
+        CurHp = MaxHp;
         //for(int n = 0; n < 5; n++)
         //{
         //    AbstractCard c = CardMaker.Instance.MakeACard(0);

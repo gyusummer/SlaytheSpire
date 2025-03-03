@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class AbstractRoom : IEquatable<AbstractRoom>
 {
-    int posX;
-    int posY;
+    protected int posX;
+    protected int posY;
     public int X => posX;
     public int Y => posY;
 
-    GameObject icon;
+    protected GameObject icon;
 
     public GameObject Icon => icon;
 
-    List<AbstractRoom> upRoom;
-    List<AbstractRoom> downRoom;
+    protected List<AbstractRoom> upRoom;
+    protected List<AbstractRoom> downRoom;
 
     public List<AbstractRoom> UpRoom => upRoom;
     public List<AbstractRoom> DownRoom => downRoom;

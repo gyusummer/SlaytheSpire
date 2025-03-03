@@ -21,7 +21,7 @@ public class DungeonMaker : Singleton<DungeonMaker>
         //Debug.Log("DungeonMaker Awake");
         MakeADungeon();
         #region TEST
-        if (TryGetComponent<MapUI>(out MapUI mapDrawer))
+        if (TryGetComponent(out MapUI mapDrawer))
         {
             mapDrawer.Init(dungeon);
             mapDrawer.DrawRoomIcons();
@@ -34,20 +34,8 @@ public class DungeonMaker : Singleton<DungeonMaker>
     {
         dungeon = new Dungeon(width, height);
         List<int[]> paths = MakePaths();
-        foreach (int[] path in paths)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                int x = path[y];
-                dungeon.MakeARoom(x, y);
-                if (y != 0)
-                {
-                    dungeon.MakeAPath(x, y, path[y - 1], y - 1);
-                }
-            }
-        }
+        dungeon.Generate(paths);
         return dungeon;
-        //dungeon.Prune();
     }
     public List<int[]> MakePaths()
     {

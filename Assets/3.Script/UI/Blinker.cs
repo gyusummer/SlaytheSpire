@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CancleButton : MonoBehaviour
+public class Blinker : MonoBehaviour
 {
     [SerializeField]
-    private Image background;
+    private Image targetImage;
     [SerializeField]
     private float AlphaMin;
     [SerializeField]
@@ -37,13 +37,13 @@ public class CancleButton : MonoBehaviour
     {
         while(true)
         {
-            Color color = background.color;
+            Color color = targetImage.color;
             if(color.a < alphaMin)
             {
                 while(color.a <= alphaMax)
                 {
                     color.a += blingSpeed * Time.deltaTime;
-                    background.color = color;
+                    targetImage.color = color;
                     yield return null;
                 }
             }
@@ -52,17 +52,10 @@ public class CancleButton : MonoBehaviour
                 while (color.a >= alphaMin)
                 {
                     color.a -= blingSpeed * Time.deltaTime;
-                    background.color = color;
+                    targetImage.color = color;
                     yield return null;
                 }
             }
-        }
-    }
-    public void Back()
-    {
-        if (transform.parent)
-        {
-            transform.parent.gameObject.SetActive(false);
         }
     }
 }

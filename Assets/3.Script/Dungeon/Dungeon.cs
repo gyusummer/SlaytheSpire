@@ -6,22 +6,12 @@ public class Dungeon
 {
     bool[,] isThereRoom;
     AbstractRoom[,] room_arr;
+    private List<AbstractRoom> room_list = new List<AbstractRoom>();
     public List<AbstractRoom> Rooms
     {
         get
         {
-            List<AbstractRoom> rooms_list = new List<AbstractRoom>();
-            for (int y = 0; y < isThereRoom.GetLength(1); y++)
-            {
-                for (int x = 0; x < isThereRoom.GetLength(0); x++)
-                {
-                    if (isThereRoom[x, y])
-                    {
-                        rooms_list.Add(room_arr[x, y]);
-                    }
-                }
-            }
-            return rooms_list;
+            return room_list;
         }
     }
 
@@ -30,20 +20,51 @@ public class Dungeon
         isThereRoom = new bool[width, height];
         room_arr = new AbstractRoom[width, height];
     }
-    //public void Prune()
-    //{
-    //    foreach(AbstractRoom room in Rooms)
-    //    {
-    //        if(room.Y != 0)
-    //        {
-    //            if(room.DownRoom.Count < 1)
-    //            {
-    //                room_arr[room.X, room.Y] = null;
-    //                isThereRoom[room.X, room.Y] = false;
-    //            }
-    //        }
-    //    }
-    //}
+    public Dungeon Generate(List<int[]> paths)
+    {
+        foreach (int[] path in paths)
+        {
+            for (int y = 0; y < room_arr.GetLength(1); y++)
+            {
+                int x = path[y];
+                MakeARoom(x, y);
+                if (y != 0)
+                {
+                    MakeAPath(x, y, path[y - 1], y - 1);
+                }
+            }
+        }
+        ArrangeRoom();
+
+        return this;
+    }
+    void ArrangeRoom()
+    {
+        for (int y = 0; y < isThereRoom.GetLength(1); y++)
+        {
+            for (int x = 0; x < isThereRoom.GetLength(0); x++)
+            {
+                if (isThereRoom[x, y])
+                {
+                    room_list.Add(room_arr[x, y]);
+                }
+            }
+        }
+        AddBossRoom();
+    }
+    void AddBossRoom()
+    {
+        AbstractRoom bossRoom = new AbstractRoom((int)(DungeonMaker.Instance.Width * 0.5f), DungeonMaker.Instance.Height + 1);
+        room_list.Add(bossRoom);
+        foreach (AbstractRoom ar in room_list)
+        {
+            if(ar.UpRoom.Count == 0)
+            {
+                ar.AddUpStair(bossRoom);
+                bossRoom.AddDownStair(ar);
+            }
+        }
+    }
     public void MakeAPath(int TopX, int TopY, int BottomX, int BottomY)
     {
         // 교차점이 생기는지 확인
@@ -77,8 +98,26 @@ public class Dungeon
         if (isThereRoom[x, y] == false)
         {
             isThereRoom[x, y] = true;
-            room_arr[x, y] = new AbstractRoom(x, y);
+            room_arr[x, y] = new BattleRoom(x, y);
+            if(y == 0)
+            {
+                room_arr[x, y].AddDownStair(new AbstractRoom(-1, -1));// 플레이어 시작지점
+            }
         }
         else return;
     }
+    //public AbstractRoom RandomRoom(int x, int y)
+    //{
+    //    AbstractRoom ar;
+
+    //    float[] roomProbs = new float[3];
+    //    roomProbs[0] = 5f;
+    //    roomProbs[1] = 1f;
+    //    Utils.Choose(roomProbs);
+
+
+
+
+    //    return ar;
+    //}
 }

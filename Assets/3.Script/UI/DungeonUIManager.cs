@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DungeonUIManager : MonoBehaviour
 {
-    public AbstractPlayerCharacter Player;
+    //public AbstractPlayerCharacter Player;
     public GameObject MapPanel;
     public GameObject DeckPanel;
     public GameObject DeckContent;
@@ -15,7 +15,10 @@ public class DungeonUIManager : MonoBehaviour
 
     private void Start()
     {
-        Player.OnCardAdded += AddCardToPlayerDeck;
+        Player.Instance.OnCardAdded += AddCardToPlayerDeck;
+        Player.Instance.OnHpChanged += UpdatePlayerHp;
+        Player.Instance.OnMoneyChanged += UpdatePlayerMoney;
+        UpdatePlayerMoney();
     }
     public void ToggleMap()
     {
@@ -48,17 +51,18 @@ public class DungeonUIManager : MonoBehaviour
         //Debug.Log("카드 추가 이벤트 호출됨");
         cardUi.SetParent(DeckContent.transform);
         cardUi.transform.localScale *= 0.45f;
+        UpdatePlayerDeckCount();
     }
     public void UpdatePlayerHp()
     {
-        playerHp.text = Player.curHp.ToString();
+        playerHp.text = $"{Player.Instance.CurHp}/{Player.Instance.MaxHp}";
     }
     public void UpdatePlayerMoney()
     {
-        playerMoney.text = Player.money.ToString();
+        playerMoney.text = Player.Instance.Money.ToString();
     }
     public void UpdatePlayerDeckCount()
     {
-        deckCount.text = Player.deck.Count.ToString();
+        deckCount.text = Player.Instance.Deck.Count.ToString();
     }
 }

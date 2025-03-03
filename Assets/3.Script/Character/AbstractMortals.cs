@@ -1,35 +1,62 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AbstractMortals : MonoBehaviour
 {
-    public int maxHp { get; protected set; }
-    public int curHp { get; protected set; }
-    public int block { get; protected set; } = 0;
-    public List<AbstractStatus> statusList { get; protected set; } = new List<AbstractStatus>();
-    public bool isDead{ get; protected set; } = false;
+    public event Action OnHpChanged;
+    private int maxHp;
+    public int MaxHp
+    {
+        get
+        {
+            return maxHp;
+        }
+        protected set
+        {
+            maxHp = value;
+            OnHpChanged?.Invoke();
+        }
+    }
+    private int curHp;
+    public int CurHp
+    {
+        get
+        {
+            return curHp;
+        }
+        protected set
+        {
+            curHp = value;
+            OnHpChanged?.Invoke();
+        }
+    }
+    public int Block { get; protected set; } = 0;
+    public List<AbstractStatus> StatusList { get; protected set; } = new List<AbstractStatus>();
+    public bool IsDead{ get; protected set; } = false;
 
+    
     public void GetDamage(int damage)
     {
-        block -= damage;
-        if(block < 0)
+        Block -= damage;
+        if(Block < 0)
         {
-            curHp -= block;
-            block = 0;
-            if (curHp <= 0)
+            CurHp -= Block;
+            Block = 0;
+            if (CurHp <= 0)
             {
-                curHp = 0;
-                isDead = true;
+                CurHp = 0;
+                IsDead = true;
             }
         }
     }
     public void GetBlock(int value)
     {
-        block += value;
+        Block += value;
     }
     public void GetStatus(int value, Statuses s)
     {
-        statusList.Add(new AbstractStatus());// UNDONE
+        StatusList.Add(new AbstractStatus());// UNDONE
     }
 }
