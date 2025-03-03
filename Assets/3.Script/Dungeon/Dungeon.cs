@@ -9,6 +9,7 @@ public class Dungeon : MonoBehaviour
     AbstractRoom[,] room_arr;
     private List<AbstractRoom> room_list = new List<AbstractRoom>();
     public GameObject Room_Prefabs;
+    public AbstractRoom firstRoom;
     
     public List<AbstractRoom> Rooms
     {
@@ -18,12 +19,13 @@ public class Dungeon : MonoBehaviour
         }
     }
 
-    public Dungeon(int width, int height, GameObject prefabs)
+    public Dungeon(int width, int height, GameObject prefabs, AbstractRoom _firstRoom)
     {
         isThereRoom = new bool[width, height];
         node_arr = new DungeonNode[width, height];
         room_arr = new AbstractRoom[width, height];
         Room_Prefabs = prefabs;
+        firstRoom = _firstRoom;
     }
     public Dungeon Generate(List<int[]> paths)
     {
@@ -58,6 +60,17 @@ public class Dungeon : MonoBehaviour
             }
         }
         AddBossRoom();
+        PointFirstRoom();
+    }
+    void PointFirstRoom()
+    {
+        foreach(AbstractRoom r in room_list)
+        {
+            if(r.DownRoom.Count == 0)
+            {
+                r.AddDownStair(firstRoom);
+            }
+        }
     }
     void NodeToRoom()
     {
