@@ -8,16 +8,20 @@ public class DungeonUIManager : MonoBehaviour
     //public AbstractPlayerCharacter Player;
     public GameObject MapPanel;
     public GameObject DeckPanel;
-    public GameObject DeckContent;
+    public GameObject DeckUI;
+    public GameObject DrawPileUI;
+    public GameObject DiscardPileUI;
     public Text playerHp;
     public Text playerMoney;
     public Text deckCount;
+    public Text drawCount;
+    public Text discardCount;
 
     private void Start()
     {
-        Player.Instance.OnCardAdded += AddCardToPlayerDeck;
         Player.Instance.OnHpChanged += UpdatePlayerHp;
         Player.Instance.OnMoneyChanged += UpdatePlayerMoney;
+        Player.Instance.OnCardPileChenged += UpdatePlayerCardCount;
         UpdatePlayerMoney();
     }
     public void ToggleMap()
@@ -33,9 +37,9 @@ public class DungeonUIManager : MonoBehaviour
         }
         //MapPanel.SetActive(!MapPanel.activeSelf);
     }
-    public void ToggleDeck()
+    public void ToggleDeck(string cardPile)
     {
-        if (DeckPanel.activeSelf)
+        if (DeckPanel.activeSelf && DeckUI.activeSelf)
         {
             DeckPanel.SetActive(false);
         }
@@ -43,15 +47,30 @@ public class DungeonUIManager : MonoBehaviour
         {
             MapPanel.SetActive(false);
             DeckPanel.SetActive(true);
+            ChooseCardPile(cardPile);
         }
         //DeckPanel.SetActive(!DeckPanel.activeSelf);
     }
-    public void AddCardToPlayerDeck(CardUI cardUi)
+    void ChooseCardPile(string cardPile)
     {
-        //Debug.Log("카드 추가 이벤트 호출됨");
-        cardUi.SetParent(DeckContent.transform);
-        cardUi.transform.localScale *= 0.45f;
-        UpdatePlayerDeckCount();
+        switch (cardPile)
+        {
+            case "Deck":
+                DeckUI.SetActive(true);
+                DrawPileUI.SetActive(false);
+                DiscardPileUI.SetActive(false);
+                break;
+            case "DrawPile":
+                DeckUI.SetActive(false);
+                DrawPileUI.SetActive(true);
+                DiscardPileUI.SetActive(false);
+                break;
+            case "DiscardPile":
+                DeckUI.SetActive(false);
+                DrawPileUI.SetActive(false);
+                DiscardPileUI.SetActive(true);
+                break;
+        }
     }
     public void UpdatePlayerHp()
     {
@@ -61,8 +80,10 @@ public class DungeonUIManager : MonoBehaviour
     {
         playerMoney.text = Player.Instance.Money.ToString();
     }
-    public void UpdatePlayerDeckCount()
+    public void UpdatePlayerCardCount()
     {
         deckCount.text = Player.Instance.Deck.Count.ToString();
+        drawCount.text = Player.Instance.DrawPile.Count.ToString();
+        discardCount.text = Player.Instance.DiscardPile.Count.ToString();
     }
 }

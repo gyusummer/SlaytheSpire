@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
 {
@@ -12,18 +13,44 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
     public int X => posX;
     public int Y => posY;
 
+    public RoomType roomType;
+    public List<GameObject> contents;
+
     protected List<AbstractRoom> upRoom;
     protected List<AbstractRoom> downRoom;
 
     public List<AbstractRoom> UpRoom => upRoom;
     public List<AbstractRoom> DownRoom => downRoom;
 
+    protected virtual void Awake()
+    {
+        contents = new List<GameObject>();
+        upRoom = new List<AbstractRoom>();
+        downRoom = new List<AbstractRoom>();
+    }
+    protected void Start()
+    {
+        if(TryGetComponent(out Button butt))
+        {
+            butt.onClick.AddListener(EnterPlayer);
+        }
+    }
+
     public void Init(int x, int y)
     {
         posX = x;
         posY = y;
-        upRoom = new List<AbstractRoom>();
-        downRoom = new List<AbstractRoom>();
+    }
+    public virtual void EnterPlayer()
+    {
+        if (!Player.Instance.isBattle)
+        {
+            if(downRoom.Contains(Player.Instance.curRoom))
+            {
+                Player.Instance.curRoom = this;
+                DungeonMaster.Instance.PrepareRoom(this);
+            }
+        }
     }
     public void CopyNode(DungeonNode node, AbstractRoom[,] room_arr)
     {

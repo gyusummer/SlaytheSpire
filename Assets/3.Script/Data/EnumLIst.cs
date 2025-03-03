@@ -1,12 +1,10 @@
-public enum Effects
+public enum RoomType
 {
-    Damage,
-    Block,
-    GiveStatus
+    Battle,
+    Rest
 }
 public enum Statuses
 {
-    None,
     Vulnerable,
 }
 public enum Relics
@@ -77,6 +75,7 @@ public enum BlackCards
 }
 public enum Monsters
 {
+    Slime,
 
 }
 public enum Elites

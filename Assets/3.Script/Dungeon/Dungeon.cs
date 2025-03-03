@@ -99,10 +99,11 @@ public class Dungeon : MonoBehaviour
         room_list.Add(bossRoom);
         foreach (AbstractRoom ar in room_list)
         {
-            if(ar.UpRoom.Count == 0)
+            if(ar.Y == room_arr.GetLength(1)-1)
             {
                 ar.AddUpStair(bossRoom);
                 bossRoom.AddDownStair(ar);
+                //Debug.Log(bossRoom.DownRoom.Count);
             }
         }
     }

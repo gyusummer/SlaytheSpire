@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,4 +20,13 @@ public abstract class AbstractCard : MonoBehaviour
     public abstract void Init();
     public abstract void SetDescription();
     public abstract void PlayCard();
+    public virtual AbstractCard MakeReplica()
+    {
+        return (AbstractCard)Instantiate(gameObject);
+    }
+
+    public static explicit operator AbstractCard(GameObject v)
+    {
+        return v.GetComponent<AbstractCard>();
+    }
 }

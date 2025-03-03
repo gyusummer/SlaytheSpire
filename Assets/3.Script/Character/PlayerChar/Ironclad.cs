@@ -26,7 +26,7 @@ public class Ironclad : Player
         //deck.Add(CardMaker.Instance.MakeACard(2));
         for(int n = 0; n < 20; n++)
         {
-            AddCardToDeck(CardMaker.Instance.MakeACard());
+            AddCardTo(CardMaker.Instance.MakeACard(),Deck,true);
         }
     }
 }

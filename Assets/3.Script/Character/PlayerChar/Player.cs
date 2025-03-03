@@ -8,14 +8,14 @@ public class Player : AbstractMortals
 {
     public static Player Instance = null;
 
-    public delegate void CardAddedHandler(CardUI cardUi);
-    public event CardAddedHandler OnCardAdded;
+    public event Action OnCardPileChenged;
     public event Action OnMoneyChanged;
     private int money = 99;
 
     public bool isBattle;
     public int x = -1, y = -1;
     public AbstractRoom curRoom;
+    public AbstractCard selectedCard;
     public int Money
     {
         get
@@ -32,7 +32,13 @@ public class Player : AbstractMortals
     public List<AbstractRelic> Relics { get; protected set; } = new List<AbstractRelic>();
     public List<AbstractCard> Deck {get; protected set; } = new List<AbstractCard>();
     public List<AbstractCard> DrawPile {get; protected set; } = new List<AbstractCard>();
+    public List<AbstractCard> Hand {get; protected set; } = new List<AbstractCard>();
     public List<AbstractCard> DiscardPile {get; protected set; } = new List<AbstractCard>();
+
+    public GameObject DeckUI;
+    public GameObject DrawPileUI;
+    public GameObject HandUI;
+    public GameObject DiscardPileUI;
     protected void Awake()
     {
         if (Instance == null)
@@ -45,12 +51,47 @@ public class Player : AbstractMortals
         }
         //Debug.Log("Player Awake");
     }
-    public virtual void AddCardToDeck(AbstractCard card)
+    public void MakeDrawPile()
     {
-        Deck.Add(card);
-        //Debug.Log("카드 추가됨");
-        card.TryGetComponent(out CardUI cardUi);
+        foreach (AbstractCard card in Deck)
+        {
+            AddCardTo(card, DrawPile);
+        }
+    }
+    protected void AddCardTo(AbstractCard c, List<AbstractCard> pile,bool destroyOriginal = false)
+    {
+        AbstractCard replica = c.MakeReplica();
+        //if (destroyOriginal) // TODO: 나중에 풀링으로 대체
+        //{
+        //    Destroy(c.gameObject);
+        //}
+        pile.Add(replica);
+        replica.TryGetComponent(out CardUI uI);
+        GameObject targetUI = null;
+        if(pile == Deck)
+        {
+            targetUI = DeckUI;
+        }
+        else if(pile == DrawPile)
+        {
+            targetUI = DrawPileUI;
+        }
+        else if (pile == Hand)
+        {
+            targetUI = HandUI;
+        }
+        else if(pile == DiscardPile)
+        {
+            targetUI = DiscardPileUI;
+        }
+        Debug.Log(targetUI);
+        uI.SetParent(targetUI.transform);
 
-        OnCardAdded?.Invoke(cardUi);
+        OnCardPileChenged?.Invoke();
+    }
+    public void GetReadyForTheNextBattle()
+    {
+        isBattle = true;
+        MakeDrawPile();
     }
 }

@@ -30,6 +30,7 @@ public class CardUI : MonoBehaviour
         }
         //gameObject.SetActive(false);
         //Debug.Log("Ä«µåUI »ý¼ºµÊ");
+        transform.localScale = Vector2.one * 0.45f;
     }
     public void SetParent(Transform newParent)
     {
