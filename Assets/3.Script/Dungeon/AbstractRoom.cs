@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbstractRoom : IEquatable<AbstractRoom>
+public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
 {
     protected int posX;
     protected int posY;

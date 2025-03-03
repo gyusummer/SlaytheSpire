@@ -13,7 +13,9 @@ public class Player : AbstractMortals
     public event Action OnMoneyChanged;
     private int money = 99;
 
+    public bool isBattle;
     public int x = -1, y = -1;
+    public AbstractRoom curRoom = new AbstractRoom(-1,-1);
     public int Money
     {
         get

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleRoom : AbstractRoom
 {
-    public List<AbstractMonster> monsters;
+    public List<AbstractMonster> monsters = new List<AbstractMonster>{new Slime(),new Slime()};
     public BattleRoom(int x, int y) : base(x, y)
     {
         posX = x;

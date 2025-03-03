@@ -25,7 +25,7 @@ public class MapUI : MonoBehaviour
         {
             foreach(AbstractRoom room in room_list)
             {
-                if (room.DownRoom.Contains(new AbstractRoom(Player.Instance.x, Player.Instance.y)))
+                if (room.DownRoom.Contains(Player.Instance.curRoom))
                 {
                     room.Icon.transform.localScale = Vector3.one * 2;
                 }
@@ -78,28 +78,9 @@ public class MapUI : MonoBehaviour
     {
         foreach(AbstractRoom room in dungeon.Rooms)
         {
-            //if(room.UpRoom.Count == 0)
-            //{
-            //    DrawLine(room.Icon.transform.position, bossPoint);
-            //        continue;
-            //}
             foreach(AbstractRoom upRoom in room.UpRoom)
             {
                 DrawLine(room.Icon.transform.position, upRoom.Icon.transform.position);
-                //GameObject edge = Instantiate(Map_Line_Prefabs, Grid_Edges.transform, true);
-                //edge.transform.position = (room.Icon.transform.position + upRoom.Icon.transform.position) * 0.5f;
-                //if (edge.TryGetComponent(out RectTransform lrt))
-                //{
-                //    Vector2 diff = upRoom.Icon.transform.position - room.Icon.transform.position;
-                //    float distance = diff.magnitude;
-                //    Vector2 d = lrt.sizeDelta;
-                //    d.x = distance;
-                //    lrt.sizeDelta = d;
-
-                //    Vector2 normal = diff.normalized;
-                //    float angle = Vector2.Angle(Vector2.right, normal);
-                //    edge.transform.rotation = Quaternion.Euler(0, 0, angle);
-                //}
             }
         }
         void DrawLine(Vector2 start, Vector2 end)
