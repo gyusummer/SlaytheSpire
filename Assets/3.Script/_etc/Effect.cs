@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Effect
 {
+    #region trash
     //public TargetTypes targetType;
     //public int effectValue;
     //public Effects effectType;
@@ -58,6 +59,7 @@ public class Effect
     //            break;
     //    }
     //}
+    #endregion
     public static void DealDamage(List<AbstractMortals> ts, int v)
     {
         foreach (AbstractMortals t in ts)

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractMortals : MonoBehaviour
+public abstract class AbstractMortals : Singleton<AbstractMortals>
 {
-    protected int maxHp;
-    protected int curHp;
-    protected int block = 0;
-    protected List<AbstractStatus> statusList;
-    protected bool isDead = false;
+    public int maxHp { get; protected set; }
+    public int curHp { get; protected set; }
+    public int block { get; protected set; } = 0;
+    public List<AbstractStatus> statusList { get; protected set; } = new List<AbstractStatus>();
+    public bool isDead{ get; protected set; } = false;
 
     public void GetDamage(int damage)
     {

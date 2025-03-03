@@ -26,6 +26,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : Component
 
 	protected virtual void Awake()
 	{
+		//Debug.Log("Singleton Awake");
 		if (instance == null)
 		{
 			instance = this as T;

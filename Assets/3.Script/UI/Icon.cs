@@ -9,22 +9,23 @@ public class Icon : MonoBehaviour
     public float howBigger;
     public float howRot;
     //int tiltDir = 1;
-    Vector2 initSize;
+    Vector2 orgSize;
 
     private void OnEnable()
     {
         if (howBigger == 0) howBigger = 1.2f;
         if (howRot == 0) howRot = 30f;
         if (TargetGraphic == null) TargetGraphic = gameObject;
-        initSize = TargetGraphic.transform.localScale;
+        orgSize = TargetGraphic.transform.localScale;
     }
     public void GrowIconSize()
     {
+        orgSize = TargetGraphic.transform.localScale;
         TargetGraphic.transform.localScale *= howBigger;
     }
-    public void ResetIconSize()
+    public void RestoreIconSize()
     {
-        TargetGraphic.transform.localScale = initSize;
+        TargetGraphic.transform.localScale = orgSize;
     }
     public void RotateIcon()
     {

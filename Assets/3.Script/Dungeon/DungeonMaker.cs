@@ -7,7 +7,6 @@ using UnityEngine;
 // 교차로가 있으면 없애고 위로 올라가는 경로를 추가함 (Dungeon에서 처리)
 public class DungeonMaker : Singleton<DungeonMaker>
 {
-    //public static DungeonMaker Instance = null;
     Dungeon dungeon;
 
     int height = 15;
@@ -17,20 +16,13 @@ public class DungeonMaker : Singleton<DungeonMaker>
     public int Height => height;
     public int Width => width;
 
-    private void Start()
+    private new void Awake()
     {
-        //if (Instance == null)
-        //{
-        //    Instance = this;
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
+        //Debug.Log("DungeonMaker Awake");
+        MakeADungeon();
         #region TEST
-        if (TryGetComponent<MapDrawer>(out MapDrawer mapDrawer))
+        if (TryGetComponent<MapUI>(out MapUI mapDrawer))
         {
-            MakeADungeon();
             mapDrawer.Init(dungeon);
             mapDrawer.DrawRoomIcons();
             mapDrawer.DrawEdges();

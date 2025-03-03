@@ -4,7 +4,7 @@ using UnityEngine;
 
 // TODO: 아이콘이랑 엣지 풀링으로 만들것
 
-public class MapDrawer : MonoBehaviour
+public class MapUI : MonoBehaviour
 {
     public GameObject Room_Button_Prefabs;
     public GameObject Map_Line_Prefabs;

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Ironclad : AbstractPlayerCharacter
 {
-    private void Awake()
+    private void Start()
     {
         Init();
+        //Debug.Log(money);
     }
     public void Init()
     {
@@ -23,9 +24,9 @@ public class Ironclad : AbstractPlayerCharacter
         //    deck.Add(c);
         //}
         //deck.Add(CardMaker.Instance.MakeACard(2));
-        for(int n = 0; n < 10; n++)
+        for(int n = 0; n < 20; n++)
         {
-            deck.Add(CardMaker.Instance.MakeACard());
+            AddCardToDeck(CardMaker.Instance.MakeACard());
         }
     }
 }
