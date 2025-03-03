@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dungeon
+public class Dungeon : MonoBehaviour
 {
     bool[,] isThereRoom;
+    DungeonNode[,] node_arr;
     AbstractRoom[,] room_arr;
     private List<AbstractRoom> room_list = new List<AbstractRoom>();
+    public GameObject Room_Prefabs;
+    
     public List<AbstractRoom> Rooms
     {
         get
@@ -15,25 +18,28 @@ public class Dungeon
         }
     }
 
-    public Dungeon(int width, int height)
+    public Dungeon(int width, int height, GameObject prefabs)
     {
         isThereRoom = new bool[width, height];
+        node_arr = new DungeonNode[width, height];
         room_arr = new AbstractRoom[width, height];
+        Room_Prefabs = prefabs;
     }
     public Dungeon Generate(List<int[]> paths)
     {
         foreach (int[] path in paths)
         {
-            for (int y = 0; y < room_arr.GetLength(1); y++)
+            for (int y = 0; y < node_arr.GetLength(1); y++)
             {
                 int x = path[y];
-                MakeARoom(x, y);
+                MakeANode(x, y);
                 if (y != 0)
                 {
                     MakeAPath(x, y, path[y - 1], y - 1);
                 }
             }
         }
+        NodeToRoom();
         ArrangeRoom();
 
         return this;
@@ -47,14 +53,36 @@ public class Dungeon
                 if (isThereRoom[x, y])
                 {
                     room_list.Add(room_arr[x, y]);
+                    room_arr[x, y].CopyNode(node_arr[x, y], room_arr);
                 }
             }
         }
         AddBossRoom();
     }
+    void NodeToRoom()
+    {
+        for (int y = 0; y < isThereRoom.GetLength(1); y++)
+        {
+            for (int x = 0; x < isThereRoom.GetLength(0); x++)
+            {
+                if (isThereRoom[x, y])
+                {
+                    AbstractRoom room = MakeARoom(x, y);
+                    room_arr[x, y] = room;
+                }
+            }
+        }
+    }
+    AbstractRoom MakeARoom(int x, int y)
+    {
+        GameObject room = Instantiate(Room_Prefabs);
+        AbstractRoom ar = (AbstractRoom)room.AddComponent(typeof(BattleRoom));
+        ar.Init(x, y);
+        return ar;
+    }
     void AddBossRoom()
     {
-        AbstractRoom bossRoom = new AbstractRoom((int)(DungeonMaker.Instance.Width * 0.5f), DungeonMaker.Instance.Height + 1);
+        AbstractRoom bossRoom = MakeARoom((int)(DungeonMaker.Instance.Width * 0.5f), DungeonMaker.Instance.Height + 1);
         room_list.Add(bossRoom);
         foreach (AbstractRoom ar in room_list)
         {
@@ -70,18 +98,18 @@ public class Dungeon
         // 교차점이 생기는지 확인
         if (isThereRoom[TopX, BottomY] && isThereRoom[BottomX, TopY])
         {
-            if (room_arr[TopX, BottomY].HasUpStair(BottomX, TopY))
+            if (node_arr[TopX, BottomY].HasUpStair(BottomX, TopY))
             {
                 // 먼저 있던 경로를 삭제
-                room_arr[TopX, BottomY].SubUpStair(room_arr[BottomX, TopY]);
-                room_arr[BottomX, TopY].SubDownStair(room_arr[TopX, BottomY]);
+                node_arr[TopX, BottomY].SubUpStair(node_arr[BottomX, TopY]);
+                node_arr[BottomX, TopY].SubDownStair(node_arr[TopX, BottomY]);
 
                 // 각자 자기 위로 올라가는 경로 추가
-                room_arr[BottomX, BottomY].AddUpStair(room_arr[BottomX, TopY]);
-                room_arr[BottomX, TopY].AddDownStair(room_arr[BottomX, BottomY]);
+                node_arr[BottomX, BottomY].AddUpStair(node_arr[BottomX, TopY]);
+                node_arr[BottomX, TopY].AddDownStair(node_arr[BottomX, BottomY]);
 
-                room_arr[TopX, BottomY].AddUpStair(room_arr[TopX, TopY]);
-                room_arr[TopX, TopY].AddDownStair(room_arr[TopX, BottomY]);
+                node_arr[TopX, BottomY].AddUpStair(node_arr[TopX, TopY]);
+                node_arr[TopX, TopY].AddDownStair(node_arr[TopX, BottomY]);
                 return;
             }
         }
@@ -89,19 +117,19 @@ public class Dungeon
         // 경로 추가
         if (isThereRoom[TopX, TopY] && isThereRoom[BottomX, BottomY])
         {
-            room_arr[BottomX, BottomY].AddUpStair(room_arr[TopX, TopY]);
-            room_arr[TopX, TopY].AddDownStair(room_arr[BottomX, BottomY]);
+            node_arr[BottomX, BottomY].AddUpStair(node_arr[TopX, TopY]);
+            node_arr[TopX, TopY].AddDownStair(node_arr[BottomX, BottomY]);
         }
     }
-    public void MakeARoom(int x, int y)
+    public void MakeANode(int x, int y)
     {
         if (isThereRoom[x, y] == false)
         {
             isThereRoom[x, y] = true;
-            room_arr[x, y] = new BattleRoom(x, y);
+            node_arr[x, y] = new DungeonNode(x, y);
             if(y == 0)
             {
-                room_arr[x, y].AddDownStair(new AbstractRoom(-1, -1));// 플레이어 시작지점
+                node_arr[x, y].AddDownStair(new DungeonNode(-1, -1));// 플레이어 시작지점
             }
         }
         else return;

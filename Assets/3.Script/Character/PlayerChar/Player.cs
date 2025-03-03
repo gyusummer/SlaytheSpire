@@ -15,7 +15,7 @@ public class Player : AbstractMortals
 
     public bool isBattle;
     public int x = -1, y = -1;
-    public AbstractRoom curRoom = new AbstractRoom(-1,-1);
+    public AbstractRoom curRoom;
     public int Money
     {
         get

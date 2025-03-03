@@ -15,6 +15,7 @@ public class DungeonMaker : Singleton<DungeonMaker>
     int startCaseMin = 2;
     public int Height => height;
     public int Width => width;
+    public GameObject Room_Prefabs;
 
     private new void Awake()
     {
@@ -32,7 +33,7 @@ public class DungeonMaker : Singleton<DungeonMaker>
 
     public Dungeon MakeADungeon()
     {
-        dungeon = new Dungeon(width, height);
+        dungeon = new Dungeon(width, height, Room_Prefabs);
         List<int[]> paths = MakePaths();
         dungeon.Generate(paths);
         return dungeon;

@@ -27,11 +27,11 @@ public class MapUI : MonoBehaviour
             {
                 if (room.DownRoom.Contains(Player.Instance.curRoom))
                 {
-                    room.Icon.transform.localScale = Vector3.one * 2;
+                    room.transform.localScale = Vector3.one * 2;
                 }
                 else
                 {
-                    room.Icon.transform.localScale = Vector3.one;
+                    room.transform.localScale = Vector3.one;
                 }
             }
         }
@@ -60,17 +60,17 @@ public class MapUI : MonoBehaviour
         foreach(AbstractRoom room in room_list)
         {
             // 정렬된 그리드 위치에 생성
-            GameObject icon = Instantiate(Room_Button_Prefabs, Grid_Rooms.transform);
-            icon.transform.position = new Vector2(zeroPoint.x + xGap * room.X, zeroPoint.y + yGap * room.Y);
+            //GameObject icon = Instantiate(Room_Button_Prefabs, Grid_Rooms.transform);
+            room.transform.SetParent(Grid_Rooms.transform);
+            room.transform.position = new Vector2(zeroPoint.x + xGap * room.X, zeroPoint.y + yGap * room.Y);
 
             // 약간의 위치 움직이기
-            float curX = icon.transform.position.x;
-            float curY = icon.transform.position.y;
+            float curX = room.transform.position.x;
+            float curY = room.transform.position.y;
             float newX = Random.Range(curX - variability.x, curX + variability.x);
             float newY = Random.Range(curY - variability.y, curY + variability.y);
             Vector2 newPos = new Vector2(newX, newY);
-            icon.transform.position = newPos;
-            room.SetIcon(icon);
+            room.transform.position = newPos;
         }
     }
     // Line Renderer가 캔버스에 안보여서 1자 모양 이미지를 생성하고 회전으로 방향 맞춰줌
@@ -80,7 +80,7 @@ public class MapUI : MonoBehaviour
         {
             foreach(AbstractRoom upRoom in room.UpRoom)
             {
-                DrawLine(room.Icon.transform.position, upRoom.Icon.transform.position);
+                DrawLine(room.transform.position, upRoom.transform.position);
             }
         }
         void DrawLine(Vector2 start, Vector2 end)
