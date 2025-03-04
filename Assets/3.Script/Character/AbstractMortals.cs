@@ -57,6 +57,6 @@ public abstract class AbstractMortals : MonoBehaviour
     }
     public void GetStatus(int value, Statuses s)
     {
-        StatusList.Add(new AbstractStatus());// UNDONE
+        StatusList.Add(new AbstractStatus());
     }
 }

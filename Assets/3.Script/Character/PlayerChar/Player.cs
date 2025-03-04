@@ -11,6 +11,9 @@ public class Player : AbstractMortals
     public event Action OnCardPileChenged;
     public event Action OnMoneyChanged;
     private int money = 99;
+    public int MaxEnergy { get; set; } = 3;
+    public int CurEnergy { get; set; } = 3;
+    public int DrawATurn { get; set; } = 5;
 
     public bool isBattle;
     public int x = -1, y = -1;
@@ -51,6 +54,39 @@ public class Player : AbstractMortals
         }
         //Debug.Log("Player Awake");
     }
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && selectedCard != null)
+        {
+            if (selectedCard.targetType != TargetTypes.Single)
+            {
+                if (selectedCard.transform.position.y > 250)
+                {
+                    //Debug.Log("카드 사용");
+                    CurEnergy -= selectedCard.cost;
+                    selectedCard.Play();
+                    Discard(selectedCard);
+                    ReleaseCard();
+                }
+            }
+            else
+            {
+                // UNDONE 싱글 타겟 카드 플레이
+            }
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (selectedCard != null)
+            {
+                ReleaseCard();
+            }
+        }
+    }
+    public void ReleaseCard()
+    {
+        selectedCard.Ui.BackToHandPanel();
+        selectedCard = null;
+    }
     public void MakeDrawPile()
     {
         foreach (AbstractCard card in Deck)
@@ -58,13 +94,39 @@ public class Player : AbstractMortals
             AddCardTo(card, DrawPile);
         }
     }
-    protected void AddCardTo(AbstractCard c, List<AbstractCard> pile,bool destroyOriginal = false)
+    public void Draw(int n = 1)
+    {
+        if(n > 0) 
+        {
+            DrawPile.Remove(DrawPile[0]);
+            AbstractCard c = AddCardTo(DrawPile[0], Hand, true);
+            c.Ui.SetParent(HandUI.transform);
+            Draw(n - 1);
+        }
+    }
+    public void Discard(AbstractCard c)
+    {
+        if(Hand.Contains(c))
+        {
+            Hand.Remove(c);
+            c = AddCardTo(c, DiscardPile, true);
+            c.Ui.SetParent(DiscardPileUI.transform);
+        }
+    }
+    public void DiscardAll()
+    {
+        foreach(AbstractCard c in Hand)
+        {
+            Discard(c);
+        }
+    }
+    protected AbstractCard AddCardTo(AbstractCard c, List<AbstractCard> pile,bool destroyOriginal = false)
     {
         AbstractCard replica = c.MakeReplica();
-        //if (destroyOriginal) // TODO: 나중에 풀링으로 대체
-        //{
-        //    Destroy(c.gameObject);
-        //}
+        if (destroyOriginal) // TODO: 나중에 풀링으로 대체
+        {
+            Destroy(c.gameObject);
+        }
         pile.Add(replica);
         replica.TryGetComponent(out CardUI uI);
         GameObject targetUI = null;
@@ -84,10 +146,13 @@ public class Player : AbstractMortals
         {
             targetUI = DiscardPileUI;
         }
-        Debug.Log(targetUI);
+        //Debug.Log(uI);
+        //Debug.Log(targetUI);
         uI.SetParent(targetUI.transform);
 
         OnCardPileChenged?.Invoke();
+
+        return replica;
     }
     public void GetReadyForTheNextBattle()
     {

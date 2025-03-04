@@ -15,11 +15,23 @@ public abstract class AbstractCard : MonoBehaviour
     [HideInInspector] public TargetTypes targetType {get; protected set;}
     [HideInInspector] public int mainValue {get; protected set;}
     [HideInInspector] public int subValue {get; protected set;}
-
+    private CardUI ui;
+    [HideInInspector]
+    public CardUI Ui
+    {
+        get
+        {
+            if(ui == null)
+            {
+                TryGetComponent(out ui);
+            }
+            return ui;
+        }
+    }
     public abstract void Awake();
     public abstract void Init();
     public abstract void SetDescription();
-    public abstract void PlayCard();
+    public abstract void Play();
     public virtual AbstractCard MakeReplica()
     {
         return (AbstractCard)Instantiate(gameObject);

@@ -22,9 +22,9 @@ public class Defend : AbstractCard
         SetDescription();
     }
 
-    public override void PlayCard()
+    public override void Play()
     {
-        
+        Player.Instance.GetBlock(mainValue);
     }
 
     public override void SetDescription()

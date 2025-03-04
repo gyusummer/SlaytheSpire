@@ -21,7 +21,7 @@ public class Strike : AbstractCard
         SetDescription();
     }
 
-    public override void PlayCard()
+    public override void Play()
     {
         
     }

@@ -19,7 +19,7 @@ public class DungeonMaster : Singleton<DungeonMaster>
         }
         if(room.roomType == RoomType.Battle)
         {
-            battleManager.StartBattle(room);
+            battleManager.PrepareBattle(room);
         }
     }
 }

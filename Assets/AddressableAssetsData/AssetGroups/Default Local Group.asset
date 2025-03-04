@@ -27,6 +27,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: df9ab5eb3e629d34886004927b3eb2bf
+    m_Address: ArrowMiddle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eadf93a7b39695649bce8fc2e19334ed
+    m_Address: ArrowEnd.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 895a5814e8f952c40b628d678a0c4fc4, type: 2}
   m_SchemaSet:

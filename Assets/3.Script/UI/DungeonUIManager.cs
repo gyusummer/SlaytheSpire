@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DungeonUIManager : MonoBehaviour
+public class DungeonUIManager : Singleton<DungeonUIManager>
 {
     //public AbstractPlayerCharacter Player;
     public GameObject MapPanel;
@@ -16,13 +16,69 @@ public class DungeonUIManager : MonoBehaviour
     public Text deckCount;
     public Text drawCount;
     public Text discardCount;
+    public GameObject[] CardArrow;
+    public GameObject ArrowMiddle;
+    public GameObject ArrowEnd;
 
+    int arrowNum = 15;
     private void Start()
     {
         Player.Instance.OnHpChanged += UpdatePlayerHp;
         Player.Instance.OnMoneyChanged += UpdatePlayerMoney;
         Player.Instance.OnCardPileChenged += UpdatePlayerCardCount;
         UpdatePlayerMoney();
+        CardArrow = new GameObject[arrowNum];
+        for(int n = 0; n < arrowNum; n++)
+        {
+            if (n != arrowNum - 1)
+            {
+                CardArrow[n] = Instantiate(ArrowMiddle, transform);
+            }
+            else
+            {
+                CardArrow[n] = Instantiate(ArrowEnd, transform);
+            }
+            CardArrow[n].SetActive(false);
+        }
+    }
+    public void StartTarget(AbstractCard card)
+    {
+        StartCoroutine(DrawArrowPointer(card));
+    }
+
+    IEnumerator DrawArrowPointer(AbstractCard card)
+    {
+        foreach (GameObject arrow in CardArrow)
+        {
+            arrow.SetActive(true);
+        }
+        while (Player.Instance.selectedCard == card)
+        {
+            Vector2 startP = card.transform.position;
+            Vector2 endP = Input.mousePosition;
+            Vector2 midP = new Vector2(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
+            float t = 1f / (arrowNum - 1);
+            for (int n = 0; n < arrowNum; n++)
+            {
+                Vector3 point = Utils.BezierPoint(startP, midP, endP, t * n);
+                CardArrow[n].transform.position = point;
+                if (n != 0) 
+                {
+                    Utils.RotateObjectToward(CardArrow[n - 1], CardArrow[n]);
+                }
+                if(n == arrowNum - 1)
+                {
+                    Vector2 v = endP - (Vector2)CardArrow[n-1].transform.position;
+                    float angle = Vector2.SignedAngle(Vector2.up, v);
+                    CardArrow[n].transform.rotation = Quaternion.Euler(0,0,angle);
+                }
+            }
+            yield return null;
+        }
+        foreach(GameObject arrow in CardArrow)
+        {
+            arrow.SetActive(false);
+        }
     }
     public void ToggleMap()
     {
