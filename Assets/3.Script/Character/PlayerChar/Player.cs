@@ -124,6 +124,7 @@ public class Player : AbstractMortals
         {
             AddCardTo(card, DrawPile);
         }
+        Shuffle(DrawPile);
     }
     public void Draw(int n = 1)
     {
@@ -133,6 +134,16 @@ public class Player : AbstractMortals
             {
                 Draw();
             }
+        }
+    }
+    void Shuffle(List<Card> cl)
+    {
+        for(int i = 0; i < cl.Count; i++)
+        {
+            int rnd = UnityEngine.Random.Range(i, cl.Count);
+            Card c = cl[i];
+            cl[i] = cl[rnd];
+            cl[rnd] = c;
         }
     }
     public void Draw()
@@ -172,6 +183,7 @@ public class Player : AbstractMortals
             DiscardPile.RemoveAt(n);
             newC.Ui.SetParent(DrawPileUI.transform);
         }
+        Shuffle(DrawPile);
     }
     protected Card AddCardTo(Card c, List<Card> pile,bool destroyOriginal = false)
     {
@@ -224,7 +236,6 @@ public class Player : AbstractMortals
     }
     void DestroyCardPile(List<Card> cards)
     {
-        Debug.Log(cards.Count);
         for (int n = cards.Count - 1; n >= 0; n--)
         {
             Destroy(cards[n].gameObject);

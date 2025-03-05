@@ -23,15 +23,15 @@ public class MapUI : MonoBehaviour
     {
         if(room_list != null)
         {
-            foreach(AbstractRoom room in room_list)
+            for(int n = 0; n < room_list.Count - 1; n++) // 보스룸 제외를 위해 -1
             {
-                if (room.DownRoom.Contains(Player.Instance.curRoom))
+                if (room_list[n].DownRoom.Contains(Player.Instance.curRoom))
                 {
-                    room.transform.localScale = Vector3.one * 2;
+                    room_list[n].transform.localScale = Vector3.one * 2;
                 }
                 else
                 {
-                    room.transform.localScale = Vector3.one;
+                    room_list[n].transform.localScale = Vector3.one;
                 }
             }
         }
@@ -90,7 +90,7 @@ public class MapUI : MonoBehaviour
             edge.TryGetComponent(out RectTransform lrt);
             
             Vector2 diff = end - start;
-            float distance = diff.magnitude;
+            float distance = diff.magnitude - 40;
             Vector2 d = lrt.sizeDelta;
             d.x = distance;
             lrt.sizeDelta = d;

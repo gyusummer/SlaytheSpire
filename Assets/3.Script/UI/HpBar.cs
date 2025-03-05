@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HpBar : MonoBehaviour
 {
-    Vector3 distance = Vector3.down * 100f;
+    Vector3 distance;
 
     [SerializeField] AbstractMortals target; //enemy
     [SerializeField] RectTransform rectT;
@@ -18,8 +18,15 @@ public class HpBar : MonoBehaviour
     public void Init(GameObject gameObject)
     {
         gameObject.TryGetComponent(out target);
-        Vector3 scrPos = Camera.main.WorldToScreenPoint(target.transform.position);
-        rectT.position = scrPos + distance;
+        target.TryGetComponent(out BoxCollider2D col);
+        float sizeY = col.size.y * 0.5f * target.transform.localScale.y;
+        distance = new Vector3(0, sizeY, 0);
+        Vector2 v1 = Camera.main.WorldToScreenPoint(col.bounds.min);
+        Vector2 v2 = Camera.main.WorldToScreenPoint(col.bounds.max);
+        float sizeX = v2.x - v1.x;
+        rectT.sizeDelta = new Vector2(sizeX, rectT.sizeDelta.y);
+        Vector3 scrPos = Camera.main.WorldToScreenPoint(target.transform.position - distance);
+        rectT.position = scrPos;
     }
     private void Update()
     {

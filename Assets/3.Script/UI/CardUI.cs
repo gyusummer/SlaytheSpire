@@ -24,6 +24,8 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     Vector2 defaultSize = Vector2.one * 0.45f;
     Vector2 handSize;
     Vector2 resPos;
+    Transform handPanel = null;
+    int resSiblingIndex = -1;
     private void Awake()
     {
         //ui = FindAnyObjectByType<DungeonUIManager>();
@@ -44,7 +46,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         {
             resPos = transform.position;
             transform.localScale = defaultSize;
-            transform.position += new Vector3(0, 100, 0);
+            transform.position += new Vector3(0, 180, 0);
         }
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -56,8 +58,13 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     }
     public void BackToHandPanel()
     {
+        transform.SetParent(handPanel);
         transform.localScale = handSize;
         transform.position = resPos;
+        if (resSiblingIndex != -1)
+        {
+            transform.SetSiblingIndex(resSiblingIndex);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -67,8 +74,11 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
             if (card.cost <= Player.Instance.CurEnergy)
             {
                 Player.Instance.selectedCard = card;
+                resSiblingIndex = transform.GetSiblingIndex();
+                transform.SetParent(transform.parent.parent);
                 if (card.targetType == TargetTypes.Single)
                 {
+                    transform.position = new Vector2(transform.parent.transform.position.x, transform.position.y);
                     DungeonUIManager.Instance.StartTarget(card);
                 }
                 else
@@ -95,6 +105,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         if (newParent.name.Contains("Hand"))
         {
             transform.localScale = handSize;
+            handPanel = transform.parent;
             isInHand = true;
         }
         else

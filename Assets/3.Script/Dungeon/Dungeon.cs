@@ -9,7 +9,8 @@ public class Dungeon : Object
     DungeonNode[,] node_arr;
     AbstractRoom[,] room_arr;
     private List<AbstractRoom> room_list = new List<AbstractRoom>();
-    public GameObject Room_Prefabs;
+    public GameObject Room_Prefab;
+    public GameObject BossRoom_Prefab;
     public AbstractRoom firstRoom;
     
     public List<AbstractRoom> Rooms
@@ -20,12 +21,13 @@ public class Dungeon : Object
         }
     }
 
-    public Dungeon(int width, int height, GameObject prefabs, AbstractRoom _firstRoom)
+    public Dungeon(int width, int height, GameObject prefab, GameObject bossRoomPrefab, AbstractRoom _firstRoom)
     {
         isThereRoom = new bool[width, height];
         node_arr = new DungeonNode[width, height];
         room_arr = new AbstractRoom[width, height];
-        Room_Prefabs = prefabs;
+        Room_Prefab = prefab;
+        BossRoom_Prefab = bossRoomPrefab;
         firstRoom = _firstRoom;
     }
     public Dungeon Generate(List<int[]> paths)
@@ -89,18 +91,15 @@ public class Dungeon : Object
     }
     AbstractRoom MakeARoom(int x, int y)
     {
-        GameObject room = Instantiate(Room_Prefabs);
+        GameObject room = Instantiate(Room_Prefab);
         AbstractRoom ar = (AbstractRoom)room.AddComponent(typeof(BattleRoom));
         ar.Init(x, y);
         return ar;
     }
     void AddBossRoom()
     {
-        GameObject prefab = null;
-        Addressables.LoadAssetAsync<GameObject>("BossRoom").Completed += (op) => prefab = op.Result;
-        GameObject obj = Instantiate(prefab);
-        //AbstractRoom bossRoom = MakeARoom((int)(DungeonMaker.Instance.Width * 0.5f), DungeonMaker.Instance.Height + 1);
-        obj.TryGetComponent(out BossRoom bossRoom);
+        GameObject room = Instantiate(BossRoom_Prefab);
+        room.TryGetComponent(out BossRoom bossRoom);
         room_list.Add(bossRoom);
         foreach (AbstractRoom ar in room_list)
         {

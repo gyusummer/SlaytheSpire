@@ -43,14 +43,22 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
     }
     public virtual void EnterPlayer()
     {
-        if (!Player.Instance.isBattle)
+        if(true) // TODO: if (!Player.Instance.isBattle) 테스트용이니 수정할것
         {
-            if(downRoom.Contains(Player.Instance.curRoom))
+            if(true) //(downRoom.Contains(Player.Instance.curRoom))
             {
+                DrawCircle();
                 Player.Instance.curRoom = this;
                 DungeonMaster.Instance.PrepareRoom(this);
             }
         }
+    }
+    protected virtual void DrawCircle()
+    {
+        GameObject child = transform.GetChild(1).gameObject;
+        child.SetActive(true);
+        child.TryGetComponent(out Animator anim);
+        anim.SetTrigger("Enter");
     }
     public void CopyNode(DungeonNode node, AbstractRoom[,] room_arr)
     {
