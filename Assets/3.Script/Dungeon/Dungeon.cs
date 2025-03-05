@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Dungeon : Object
 {
@@ -86,7 +87,7 @@ public class Dungeon : Object
             }
         }
     }
-    AbstractRoom MakeARoom(int x, int y, RoomType roomType = RoomType.Battle)
+    AbstractRoom MakeARoom(int x, int y)
     {
         GameObject room = Instantiate(Room_Prefabs);
         AbstractRoom ar = (AbstractRoom)room.AddComponent(typeof(BattleRoom));
@@ -95,7 +96,11 @@ public class Dungeon : Object
     }
     void AddBossRoom()
     {
-        AbstractRoom bossRoom = MakeARoom((int)(DungeonMaker.Instance.Width * 0.5f), DungeonMaker.Instance.Height + 1);
+        GameObject prefab = null;
+        Addressables.LoadAssetAsync<GameObject>("BossRoom").Completed += (op) => prefab = op.Result;
+        GameObject obj = Instantiate(prefab);
+        //AbstractRoom bossRoom = MakeARoom((int)(DungeonMaker.Instance.Width * 0.5f), DungeonMaker.Instance.Height + 1);
+        obj.TryGetComponent(out BossRoom bossRoom);
         room_list.Add(bossRoom);
         foreach (AbstractRoom ar in room_list)
         {

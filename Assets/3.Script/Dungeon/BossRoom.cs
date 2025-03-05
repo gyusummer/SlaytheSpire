@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class BossRoom : AbstractRoom
 {
-
+    private new void Start()
+    {
+        base.Start();
+    }
 }
