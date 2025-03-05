@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dungeon : MonoBehaviour
+public class Dungeon : Object
 {
     bool[,] isThereRoom;
     DungeonNode[,] node_arr;
@@ -86,7 +86,7 @@ public class Dungeon : MonoBehaviour
             }
         }
     }
-    AbstractRoom MakeARoom(int x, int y)
+    AbstractRoom MakeARoom(int x, int y, RoomType roomType = RoomType.Battle)
     {
         GameObject room = Instantiate(Room_Prefabs);
         AbstractRoom ar = (AbstractRoom)room.AddComponent(typeof(BattleRoom));

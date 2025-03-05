@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    AbstractCard card;
+    Card card;
     //DungeonUIManager ui;
     Image[] cardImages;
     Image backImg;

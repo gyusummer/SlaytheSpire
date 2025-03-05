@@ -12,6 +12,7 @@ public class HpBar : MonoBehaviour
     [SerializeField] Slider slider;
     [SerializeField] Text hpText;
     [SerializeField] Text blockText;
+    [SerializeField] GameObject blockImage;
 
 
     public void Init(GameObject gameObject)
@@ -22,7 +23,20 @@ public class HpBar : MonoBehaviour
     }
     private void Update()
     {
-        slider.value = target.CurHp / target.MaxHp;
+        if(target.CurHp <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        if (target.Block <= 0)
+        {
+            blockImage.SetActive(false);
+        }
+        else
+        {
+            blockImage.SetActive(true);
+        }
+        slider.value = (float)target.CurHp / target.MaxHp;
         hpText.text = $"{target.CurHp}/{target.MaxHp}";
         blockText.text = $"{target.Block}";
     }

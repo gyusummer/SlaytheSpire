@@ -41,18 +41,18 @@ public class DungeonUIManager : Singleton<DungeonUIManager>
             CardArrow[n].SetActive(false);
         }
     }
-    public void StartTarget(AbstractCard card)
+    public void StartTarget(Card card)
     {
         StartCoroutine(DrawArrowPointer(card));
     }
 
-    IEnumerator DrawArrowPointer(AbstractCard card)
+    IEnumerator DrawArrowPointer(Card card)
     {
         foreach (GameObject arrow in CardArrow)
         {
             arrow.SetActive(true);
         }
-        while (Player.Instance.selectedCard == card)
+        while (card != null && Player.Instance.selectedCard == card)
         {
             Vector2 startP = card.transform.position;
             Vector2 endP = Input.mousePosition;
@@ -73,6 +73,27 @@ public class DungeonUIManager : Singleton<DungeonUIManager>
                     CardArrow[n].transform.rotation = Quaternion.Euler(0,0,angle);
                 }
             }
+            bool isEnemy = false;
+            RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if(rayHit.collider != null)
+            {
+                //Debug.Log(rayHit.transform.name);
+                isEnemy = rayHit.transform.CompareTag("Enemy");
+            }
+            foreach (GameObject g in CardArrow)
+            {
+                if (g.TryGetComponent(out RawImage image))
+                {
+                    if (isEnemy)
+                    {
+                        image.color = Color.red;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                }
+            }
             yield return null;
         }
         foreach(GameObject arrow in CardArrow)
@@ -80,6 +101,12 @@ public class DungeonUIManager : Singleton<DungeonUIManager>
             arrow.SetActive(false);
         }
     }
+    public void CloseAllPopups()
+    {
+        MapPanel.SetActive(false);
+        DeckPanel.SetActive(false);
+    }
+
     public void ToggleMap()
     {
         if (MapPanel.activeSelf)

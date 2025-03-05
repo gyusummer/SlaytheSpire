@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Strike : AbstractCard
+
+public class Defend : Card
 {
     public override void Awake()
     {
@@ -10,12 +11,12 @@ public class Strike : AbstractCard
 
     public override void Init()
     {
-        type = CardTypes.Attack;
-        name = "타격";
+        type = CardTypes.Skill;
+        name = "수비";
         cost = 1;
         color = CardColors.Red;
-        illuPath = "Cards/red/attack/strike.png";
-        targetType = TargetTypes.Single;
+        illuPath = "Cards/red/skill/defend.png";
+        targetType = TargetTypes.Self;
         mainValue = 6;
         subValue = -1;
         SetDescription();
@@ -23,11 +24,11 @@ public class Strike : AbstractCard
 
     public override void Play()
     {
-        
+        Player.Instance.GetBlock(mainValue);
     }
 
     public override void SetDescription()
     {
-        description = $"피해를 {mainValue} 줍니다.";
+        description = $"방어도를 {mainValue} 얻습니다.";
     }
 }

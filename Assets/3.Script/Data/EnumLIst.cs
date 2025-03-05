@@ -1,7 +1,8 @@
 public enum RoomType
 {
     Battle,
-    Rest
+    Rest,
+    Boss
 }
 public enum Statuses
 {

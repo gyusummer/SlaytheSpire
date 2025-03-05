@@ -6,6 +6,8 @@ using UnityEngine.Events;
 
 public class Player : AbstractMortals
 {
+    public Action<Player> OnBattleStart;
+
     public static Player Instance = null;
 
     public event Action OnCardPileChenged;
@@ -18,7 +20,7 @@ public class Player : AbstractMortals
     public bool isBattle;
     public int x = -1, y = -1;
     public AbstractRoom curRoom;
-    public AbstractCard selectedCard;
+    public Card selectedCard;
     public int Money
     {
         get
@@ -31,17 +33,18 @@ public class Player : AbstractMortals
             OnMoneyChanged?.Invoke();
         }
     }
-    public Potion[] Potions { get; protected set; } = new Potion[3];
-    public List<AbstractRelic> Relics { get; protected set; } = new List<AbstractRelic>();
-    public List<AbstractCard> Deck {get; protected set; } = new List<AbstractCard>();
-    public List<AbstractCard> DrawPile {get; protected set; } = new List<AbstractCard>();
-    public List<AbstractCard> Hand {get; protected set; } = new List<AbstractCard>();
-    public List<AbstractCard> DiscardPile {get; protected set; } = new List<AbstractCard>();
+    //public Potion[] Potions { get; protected set; } = new Potion[3];
+    public List<Relic> Relics { get; protected set; } = new List<Relic>();
+    public List<Card> Deck {get; protected set; } = new List<Card>();
+    public List<Card> DrawPile {get; protected set; } = new List<Card>();
+    public List<Card> Hand {get; protected set; } = new List<Card>();
+    public List<Card> DiscardPile {get; protected set; } = new List<Card>();
 
     public GameObject DeckUI;
     public GameObject DrawPileUI;
     public GameObject HandUI;
     public GameObject DiscardPileUI;
+    public GameObject RelicUI;
     protected void Awake()
     {
         if (Instance == null)
@@ -71,7 +74,18 @@ public class Player : AbstractMortals
             }
             else
             {
-                // UNDONE 싱글 타겟 카드 플레이
+                RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                if(rayHit.transform != null)
+                {
+                    if (rayHit.transform.TryGetComponent(out AbstractMonster mob))
+                    {
+                        Debug.Log(rayHit.transform.name);
+                        CurEnergy -= selectedCard.cost;
+                        selectedCard.Play(mob);
+                        Discard(selectedCard);
+                        ReleaseCard();
+                    }
+                }
             }
         }
         if (Input.GetMouseButtonDown(1))
@@ -82,14 +96,31 @@ public class Player : AbstractMortals
             }
         }
     }
+    protected void GetRelic(Relic relic)
+    {
+        relic.GetEffect();
+        Relics.Add(relic);
+        relic.transform.SetParent(RelicUI.transform);
+    }
+    protected override void Die()
+    {
+        IsDead = true;
+        if(TryGetComponent(out Animator anim))
+        {
+            anim.SetBool("isDead", true);
+        }
+    }
     public void ReleaseCard()
     {
-        selectedCard.Ui.BackToHandPanel();
-        selectedCard = null;
+        if(selectedCard != null)
+        {
+            selectedCard.Ui.BackToHandPanel();
+            selectedCard = null;
+        }
     }
     public void MakeDrawPile()
     {
-        foreach (AbstractCard card in Deck)
+        foreach (Card card in Deck)
         {
             AddCardTo(card, DrawPile);
         }
@@ -98,31 +129,53 @@ public class Player : AbstractMortals
     {
         if(n > 0) 
         {
-            DrawPile.Remove(DrawPile[0]);
-            AbstractCard c = AddCardTo(DrawPile[0], Hand, true);
-            c.Ui.SetParent(HandUI.transform);
-            Draw(n - 1);
+            for(int k = 0; k < n; k++)
+            {
+                Draw();
+            }
         }
     }
-    public void Discard(AbstractCard c)
+    public void Draw()
+    {
+        if(DrawPile.Count <= 0)
+        {
+            RecycleDiscard();
+        }
+        Card c = DrawPile[0];
+        DrawPile.Remove(c);
+        Card h = AddCardTo(c, Hand, true);
+        h.Ui.SetParent(HandUI.transform);
+    }
+    public void Discard(Card c)
     {
         if(Hand.Contains(c))
         {
             Hand.Remove(c);
-            c = AddCardTo(c, DiscardPile, true);
-            c.Ui.SetParent(DiscardPileUI.transform);
+            Card newC = AddCardTo(c, DiscardPile, true);
+            newC.Ui.SetParent(DiscardPileUI.transform);
+            //Destroy(c);
         }
     }
     public void DiscardAll()
     {
-        foreach(AbstractCard c in Hand)
+        for(int n = Hand.Count - 1; n >= 0; n--)
         {
-            Discard(c);
+            Discard(Hand[n]);
         }
     }
-    protected AbstractCard AddCardTo(AbstractCard c, List<AbstractCard> pile,bool destroyOriginal = false)
+    public void RecycleDiscard()
     {
-        AbstractCard replica = c.MakeReplica();
+        for(int n = DiscardPile.Count - 1; n >= 0; n--)
+        {
+            //DiscardPile.Remove(DiscardPile[n]);
+            Card newC = AddCardTo(DiscardPile[n], DrawPile, true);
+            DiscardPile.RemoveAt(n);
+            newC.Ui.SetParent(DrawPileUI.transform);
+        }
+    }
+    protected Card AddCardTo(Card c, List<Card> pile,bool destroyOriginal = false)
+    {
+        Card replica = c.MakeReplica();
         if (destroyOriginal) // TODO: 나중에 풀링으로 대체
         {
             Destroy(c.gameObject);
@@ -158,5 +211,24 @@ public class Player : AbstractMortals
     {
         isBattle = true;
         MakeDrawPile();
+        OnBattleStart?.Invoke(this);
+    }
+    public void EndBattle()
+    {
+        isBattle = false;
+        ReleaseCard();
+        DestroyCardPile(DrawPile);
+        DestroyCardPile(Hand);
+        DestroyCardPile(DiscardPile);
+        DungeonUIManager.Instance.UpdatePlayerCardCount();
+    }
+    void DestroyCardPile(List<Card> cards)
+    {
+        Debug.Log(cards.Count);
+        for (int n = cards.Count - 1; n >= 0; n--)
+        {
+            Destroy(cards[n].gameObject);
+        }
+        cards.Clear();
     }
 }

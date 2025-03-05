@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventRoom : MonoBehaviour
+public class Intent : MonoBehaviour
 {
     
 }

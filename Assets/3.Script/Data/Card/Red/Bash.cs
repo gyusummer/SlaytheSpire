@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bash : AbstractCard
+public class Bash : Card
 {
     public override void Awake()
     {
@@ -22,9 +22,9 @@ public class Bash : AbstractCard
         SetDescription();
     }
 
-    public override void Play()
+    public override void Play(AbstractMortals mob)
     {
-        
+        mob.GetDamage(mainValue);
     }
 
     public override void SetDescription()

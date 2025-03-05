@@ -22,14 +22,12 @@ public class DungeonMaker : Singleton<DungeonMaker>
     {
         //Debug.Log("DungeonMaker Awake");
         MakeADungeon();
-        #region TEST
         if (TryGetComponent(out MapUI mapDrawer))
         {
             mapDrawer.Init(dungeon);
             mapDrawer.DrawRoomIcons();
             mapDrawer.DrawEdges();
         }
-        #endregion
     }
 
     public Dungeon MakeADungeon()
@@ -84,18 +82,18 @@ public class DungeonMaker : Singleton<DungeonMaker>
 
 
     #region TEST
-    public void Test()
-    {
-        MakeADungeon();
-        List<AbstractRoom> room_list = dungeon.Rooms;
-        Debug.Log(room_list.Count);
-        foreach (AbstractRoom room in room_list)
-        {
-            foreach (AbstractRoom uproom in room.UpRoom)
-            {
-                Debug.DrawLine(new Vector2(room.X, room.Y), new Vector2(uproom.X, uproom.Y), Color.white, 3f);
-            }
-        }
-    }
+    //public void Test()
+    //{
+    //    MakeADungeon();
+    //    List<AbstractRoom> room_list = dungeon.Rooms;
+    //    Debug.Log(room_list.Count);
+    //    foreach (AbstractRoom room in room_list)
+    //    {
+    //        foreach (AbstractRoom uproom in room.UpRoom)
+    //        {
+    //            Debug.DrawLine(new Vector2(room.X, room.Y), new Vector2(uproom.X, uproom.Y), Color.white, 3f);
+    //        }
+    //    }
+    //}
     #endregion
 }

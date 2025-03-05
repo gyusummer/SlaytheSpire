@@ -12,7 +12,7 @@ public class TestScript : MonoBehaviour
     private void Start()
     {
         seed = Environment.TickCount;
-        if(TryGetComponent(out AbstractCard abstractCard))
+        if(TryGetComponent(out Card abstractCard))
         {
             GameObject card = Instantiate(cardPrefab,canvas.transform);
             RawImage ri = card.GetComponentInChildren<RawImage>();

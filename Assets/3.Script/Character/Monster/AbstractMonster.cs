@@ -7,6 +7,7 @@ public abstract class AbstractMonster : AbstractMortals
     public int attackValue;
     public virtual void Behave() 
     {
+        if (IsDead) return;
         Attack();
     }
     protected void Attack()

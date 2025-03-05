@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class CardDictionary
+public static class CardDictionary
 {
     public static string commonAttackFrame = "CardUI/cardui3.png[ComAttFrame]";
     public static string commonSkillFrame = "CardUI/cardui2.png[ComSkiFrame]";
@@ -9,6 +9,12 @@ public class CardDictionary
     public static string redAttackBackPath = "CardUI/cardui.png[Red_Attack]";
     public static string redSkillBackPath = "CardUI/cardui3.png[Red_Skill]";
     public static string redPowerBackPath = "CardUI/cardui3.png[Red_Power]";
+    public static Dictionary<RedCommonCard, Type> redCommonCards = new Dictionary<RedCommonCard, Type>
+        {
+            {RedCommonCard.Strike,typeof(Strike)},
+            {RedCommonCard.Defend,typeof(Defend)},
+            {RedCommonCard.Bash,typeof(Bash)},
+        };
     public static Dictionary<CardTypes, string> framePath = new Dictionary<CardTypes, string>
     {
         {CardTypes.Attack, commonAttackFrame},
@@ -35,10 +41,4 @@ public class CardDictionary
                 break;
         }
     }
-    public static Dictionary<RedCommonCard, Type> redCommonCards = new Dictionary<RedCommonCard, Type>
-        {
-            {RedCommonCard.Strike,typeof(Strike)},
-            {RedCommonCard.Defend,typeof(Defend)},
-            {RedCommonCard.Bash,typeof(Bash)},
-        };
 }

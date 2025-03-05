@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractCard : MonoBehaviour
+public abstract class Card : MonoBehaviour
 {
     [HideInInspector] public CardTypes type { get; protected set;}
     [HideInInspector] public new string name {get; protected set;}
@@ -31,14 +31,18 @@ public abstract class AbstractCard : MonoBehaviour
     public abstract void Awake();
     public abstract void Init();
     public abstract void SetDescription();
-    public abstract void Play();
-    public virtual AbstractCard MakeReplica()
+    //public abstract int PredictValue();
+    public virtual void Play() { }
+    public virtual void Play(AbstractMortals target) { }
+    public virtual void Play(List<AbstractMortals> targets) { }
+    public virtual Card MakeReplica()
     {
-        return (AbstractCard)Instantiate(gameObject);
+        return (Card)Instantiate(gameObject);
     }
 
-    public static explicit operator AbstractCard(GameObject v)
+    public static explicit operator Card(GameObject v)
     {
-        return v.GetComponent<AbstractCard>();
+        v.TryGetComponent(out Card c);
+        return c;
     }
 }

@@ -7,12 +7,15 @@ public class CardMaker : Singleton<CardMaker>
 {
     [SerializeField] GameObject CardPrefab;
 
-    public AbstractCard MakeACard()
+    public Card MakeACard(int id = -1)
     {
-        int r = UnityEngine.Random.Range(0, CardDictionary.redCommonCards.Count);
-        Type t = CardDictionary.redCommonCards[(RedCommonCard)r];
+        if(id == -1)
+        {
+            id = UnityEngine.Random.Range(0, CardDictionary.redCommonCards.Count);
+        }
+        Type t = CardDictionary.redCommonCards[(RedCommonCard)id];
         GameObject g = Instantiate(CardPrefab);
-        AbstractCard c = g.AddComponent(t) as AbstractCard;
+        Card c = g.AddComponent(t) as Card;
         g.AddComponent<CardUI>();
         return c;
     }
