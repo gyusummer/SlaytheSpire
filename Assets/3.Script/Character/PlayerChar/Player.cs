@@ -79,7 +79,7 @@ public class Player : AbstractMortals
                 {
                     if (rayHit.transform.TryGetComponent(out AbstractMonster mob))
                     {
-                        Debug.Log(rayHit.transform.name);
+                        //Debug.Log(rayHit.transform.name);
                         CurEnergy -= selectedCard.cost;
                         selectedCard.Play(mob);
                         Discard(selectedCard);
