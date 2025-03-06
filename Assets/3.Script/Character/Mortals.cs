@@ -6,6 +6,10 @@ using UnityEngine;
 public abstract class Mortals : MonoBehaviour
 {
     public event Action OnHpChanged;
+    public event Action OnStatusChanged;
+    public Func<int, int> OnAttack;
+    public Func<int, int> OnGetDamage;
+
     private int maxHp;
     public int MaxHp
     {
@@ -73,9 +77,26 @@ public abstract class Mortals : MonoBehaviour
     {
         Block -= value;
     }
-    public void GetStatus(int value, Statuses s)
+    public void GetStatus(int value, Statuses id)
     {
-        StatusList.Add(new Status());
+        //이미 가졌다면
+        Type sType = StatusDictionary.Dict[id];
+        foreach(Status s in StatusList)
+        {
+            if(s.GetType() == sType)
+            {
+                s.stack += value;
+                OnStatusChanged?.Invoke();
+                return;
+            }
+        }
+        // 가지지 않았다면
+        Status status = (Status)Activator.CreateInstance(sType, new object[] { this });
+        status.stack = value;
+        StatusList.Add(status);
+        status.GetEffect();
+
+        OnStatusChanged?.Invoke();
     }
     public void GetHeal(int value)
     {

@@ -18,7 +18,7 @@ public class TestScript : MonoBehaviour
             RawImage ri = card.GetComponentInChildren<RawImage>();
             ri.texture = abstractCard.illust.texture;
             Debug.Log(abstractCard.GetType());
-            Debug.Log(abstractCard.description);
+            Debug.Log(abstractCard.Description);
         }
     }
 
@@ -28,6 +28,6 @@ public class TestScript : MonoBehaviour
     }
     public void ResetSeed()
     {
-        UnityEngine.Random.seed = seed;
+        //UnityEngine.Random.seed = seed;
     }
 }

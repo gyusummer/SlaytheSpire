@@ -27,8 +27,13 @@ public class Defend : Card
         Player.Instance.GetBlock(mainValue);
     }
 
+    public override void PredictValue()
+    {
+
+    }
+
     public override void SetDescription()
     {
-        description = $"방어도를 {mainValue} 얻습니다.";
+        Description = $"방어도를 {mainValue} 얻습니다.";
     }
 }

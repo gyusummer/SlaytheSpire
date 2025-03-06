@@ -70,4 +70,30 @@ public class BattleManger : Singleton<BattleManger>
         BattleUI.SetActive(false);
         Player.Instance.EndBattle();
     }
+    public static bool FindTarget(out Monster target)
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (rayHit.transform != null)
+        {
+            if (rayHit.transform.TryGetComponent(out Monster mob))
+            {
+                target = mob;
+                return true;
+            }
+        }
+        target = null;
+        return false;
+    }
+    public static bool FindTarget()
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (rayHit.transform != null)
+        {
+            if (rayHit.transform.TryGetComponent(out Monster mob))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

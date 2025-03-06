@@ -31,10 +31,16 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         if (TryGetComponent(out card))
         {
             ChangeImages();
+            textBoxes = GetComponentsInChildren<Text>();
+            descriptT = textBoxes[0];
+            typeT = textBoxes[1];
+            nameT = textBoxes[2];
+            costT = textBoxes[3];
             ChangeTexts();
         }
         transform.localScale = defaultSize;
         handSize = defaultSize * 0.75f;
+        card.OnCardUpdated += ChangeTexts;
     }
     public void OnPointerEnter(PointerEventData e)
     {
@@ -61,6 +67,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         {
             transform.SetSiblingIndex(resSiblingIndex);
         }
+        card.PredictValue();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -103,6 +110,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
             transform.localScale = handSize;
             handPanel = transform.parent;
             isInHand = true;
+            card.PredictValue();
         }
         else
         {
@@ -112,12 +120,7 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     }
     void ChangeTexts()
     {
-        textBoxes = GetComponentsInChildren<Text>();
-        descriptT = textBoxes[0];
-        typeT = textBoxes[1];
-        nameT = textBoxes[2];
-        costT = textBoxes[3];
-        descriptT.text = card.description;
+        descriptT.text = card.Description;
         typeT.text = Enum.GetName(typeof(CardTypes), card.type);
         nameT.text = card.name;
         costT.text = card.cost.ToString();

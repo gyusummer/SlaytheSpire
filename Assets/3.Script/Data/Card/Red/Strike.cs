@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Strike : Card
+public class Strike : SingleTargetCard
 {
     public override void Awake()
     {
@@ -17,17 +18,17 @@ public class Strike : Card
         illuPath = "Cards/red/attack/strike.png";
         targetType = TargetTypes.Single;
         mainValue = 6;
+        IndicatedValue = mainValue;
         subValue = -1;
         SetDescription();
     }
 
     public override void Play(Mortals mob)
     {
-        mob.GetDamage(mainValue);
+        mob.GetDamage(IndicatedValue);
     }
-
     public override void SetDescription()
     {
-        description = $"피해를 {mainValue} 줍니다.";
+        Description = $"피해를 {IndicatedValue} 줍니다.";
     }
 }

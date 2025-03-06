@@ -25,10 +25,16 @@ public class Bash : Card
     public override void Play(Mortals mob)
     {
         mob.GetDamage(mainValue);
+        mob.GetStatus(subValue, Statuses.Vulnerable);
+    }
+
+    public override void PredictValue()
+    {
+
     }
 
     public override void SetDescription()
     {
-        description = $"피해를 {mainValue} 줍니다.\n취약을 {subValue} 부여합니다.";
+        Description = $"피해를 {mainValue} 줍니다.\n취약을 {subValue} 부여합니다.";
     }
 }

@@ -73,12 +73,14 @@ public class DungeonUIManager : Singleton<DungeonUIManager>
                     CardArrow[n].transform.rotation = Quaternion.Euler(0,0,angle);
                 }
             }
-            bool isEnemy = false;
-            RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if(rayHit.collider != null)
+            bool isEnemy;
+            if(isEnemy = BattleManger.FindTarget(out Monster mob))
             {
-                //Debug.Log(rayHit.transform.name);
-                isEnemy = rayHit.transform.CompareTag("Enemy");
+                card.PredictValue(mob);
+            }
+            else
+            {
+                card.PredictValue();
             }
             foreach (GameObject g in CardArrow)
             {

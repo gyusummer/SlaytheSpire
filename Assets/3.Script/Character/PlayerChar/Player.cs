@@ -74,17 +74,12 @@ public class Player : Mortals
             }
             else
             {
-                RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                if(rayHit.transform != null)
+                if (BattleManger.FindTarget(out Monster mob))
                 {
-                    if (rayHit.transform.TryGetComponent(out Monster mob))
-                    {
-                        //Debug.Log(rayHit.transform.name);
-                        CurEnergy -= selectedCard.cost;
-                        selectedCard.Play(mob);
-                        Discard(selectedCard);
-                        ReleaseCard();
-                    }
+                    CurEnergy -= selectedCard.cost;
+                    selectedCard.Play(mob);
+                    Discard(selectedCard);
+                    ReleaseCard();
                 }
             }
         }
