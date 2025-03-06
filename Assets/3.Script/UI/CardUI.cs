@@ -28,15 +28,11 @@ public class CardUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     int resSiblingIndex = -1;
     private void Awake()
     {
-        //ui = FindAnyObjectByType<DungeonUIManager>();
-        //transform.SetParent(ui.transform, false);
         if (TryGetComponent(out card))
         {
             ChangeImages();
             ChangeTexts();
         }
-        //gameObject.SetActive(false);
-        //Debug.Log("Ä«µåUI »ý¼ºµÊ");
         transform.localScale = defaultSize;
         handSize = defaultSize * 0.75f;
     }

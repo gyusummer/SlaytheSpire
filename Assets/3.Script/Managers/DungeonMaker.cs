@@ -17,7 +17,7 @@ public class DungeonMaker : Singleton<DungeonMaker>
     public int Width => width;
     public GameObject Room_Prefabs;
     public GameObject BossRoom_Prefab;
-    public AbstractRoom firstRoom;
+    public Room firstRoom;
 
     private new void Awake()
     {

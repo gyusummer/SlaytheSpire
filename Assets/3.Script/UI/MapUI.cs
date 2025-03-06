@@ -17,7 +17,7 @@ public class MapUI : MonoBehaviour
     Vector2 zeroPoint;
     Vector2 variability;
     Dungeon dungeon;
-    List<AbstractRoom> room_list;
+    List<Room> room_list;
 
     private void Update()
     {
@@ -57,7 +57,7 @@ public class MapUI : MonoBehaviour
     public void DrawRoomIcons()
     {
         room_list = dungeon.Rooms;
-        foreach(AbstractRoom room in room_list)
+        foreach(Room room in room_list)
         {
             // 정렬된 그리드 위치에 생성
             //GameObject icon = Instantiate(Room_Button_Prefabs, Grid_Rooms.transform);
@@ -76,9 +76,9 @@ public class MapUI : MonoBehaviour
     // Line Renderer가 캔버스에 안보여서 1자 모양 이미지를 생성하고 회전으로 방향 맞춰줌
     public void DrawEdges()
     {
-        foreach(AbstractRoom room in dungeon.Rooms)
+        foreach(Room room in dungeon.Rooms)
         {
-            foreach(AbstractRoom upRoom in room.UpRoom)
+            foreach(Room upRoom in room.UpRoom)
             {
                 DrawLine(room.transform.position, upRoom.transform.position);
             }

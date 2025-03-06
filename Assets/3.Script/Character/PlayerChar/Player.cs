@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : AbstractMortals
+public class Player : Mortals
 {
     public Action<Player> OnBattleStart;
 
@@ -19,7 +19,7 @@ public class Player : AbstractMortals
 
     public bool isBattle;
     public int x = -1, y = -1;
-    public AbstractRoom curRoom;
+    public Room curRoom;
     public Card selectedCard;
     public int Money
     {
@@ -77,7 +77,7 @@ public class Player : AbstractMortals
                 RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 if(rayHit.transform != null)
                 {
-                    if (rayHit.transform.TryGetComponent(out AbstractMonster mob))
+                    if (rayHit.transform.TryGetComponent(out Monster mob))
                     {
                         //Debug.Log(rayHit.transform.name);
                         CurEnergy -= selectedCard.cost;

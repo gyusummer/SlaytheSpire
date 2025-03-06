@@ -22,7 +22,7 @@ public class Bash : Card
         SetDescription();
     }
 
-    public override void Play(AbstractMortals mob)
+    public override void Play(Mortals mob)
     {
         mob.GetDamage(mainValue);
     }

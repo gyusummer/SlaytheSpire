@@ -7,13 +7,13 @@ public class Dungeon : Object
 {
     bool[,] isThereRoom;
     DungeonNode[,] node_arr;
-    AbstractRoom[,] room_arr;
-    private List<AbstractRoom> room_list = new List<AbstractRoom>();
+    Room[,] room_arr;
+    private List<Room> room_list = new List<Room>();
     public GameObject Room_Prefab;
     public GameObject BossRoom_Prefab;
-    public AbstractRoom firstRoom;
+    public Room firstRoom;
     
-    public List<AbstractRoom> Rooms
+    public List<Room> Rooms
     {
         get
         {
@@ -21,11 +21,11 @@ public class Dungeon : Object
         }
     }
 
-    public Dungeon(int width, int height, GameObject prefab, GameObject bossRoomPrefab, AbstractRoom _firstRoom)
+    public Dungeon(int width, int height, GameObject prefab, GameObject bossRoomPrefab, Room _firstRoom)
     {
         isThereRoom = new bool[width, height];
         node_arr = new DungeonNode[width, height];
-        room_arr = new AbstractRoom[width, height];
+        room_arr = new Room[width, height];
         Room_Prefab = prefab;
         BossRoom_Prefab = bossRoomPrefab;
         firstRoom = _firstRoom;
@@ -67,7 +67,7 @@ public class Dungeon : Object
     }
     void PointFirstRoom()
     {
-        foreach(AbstractRoom r in room_list)
+        foreach(Room r in room_list)
         {
             if(r.DownRoom.Count == 0)
             {
@@ -83,16 +83,16 @@ public class Dungeon : Object
             {
                 if (isThereRoom[x, y])
                 {
-                    AbstractRoom room = MakeARoom(x, y);
+                    Room room = MakeARoom(x, y);
                     room_arr[x, y] = room;
                 }
             }
         }
     }
-    AbstractRoom MakeARoom(int x, int y)
+    Room MakeARoom(int x, int y)
     {
         GameObject room = Instantiate(Room_Prefab);
-        AbstractRoom ar = (AbstractRoom)room.AddComponent(typeof(BattleRoom));
+        Room ar = (Room)room.AddComponent(typeof(BattleRoom));
         ar.Init(x, y);
         return ar;
     }
@@ -101,7 +101,7 @@ public class Dungeon : Object
         GameObject room = Instantiate(BossRoom_Prefab);
         room.TryGetComponent(out BossRoom bossRoom);
         room_list.Add(bossRoom);
-        foreach (AbstractRoom ar in room_list)
+        foreach (Room ar in room_list)
         {
             if(ar.Y == room_arr.GetLength(1)-1)
             {

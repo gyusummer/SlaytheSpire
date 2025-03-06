@@ -7,13 +7,13 @@ public class CardMaker : Singleton<CardMaker>
 {
     [SerializeField] GameObject CardPrefab;
 
-    public Card MakeACard(int id = -1)
+    public Card MakeACard(RedCommonCard id = RedCommonCard.Random)
     {
-        if(id == -1)
+        if(id == RedCommonCard.Random)
         {
-            id = UnityEngine.Random.Range(0, CardDictionary.redCommonCards.Count);
+            id = (RedCommonCard)UnityEngine.Random.Range(0, CardDictionary.redCommonCards.Count);
         }
-        Type t = CardDictionary.redCommonCards[(RedCommonCard)id];
+        Type t = CardDictionary.redCommonCards[id];
         GameObject g = Instantiate(CardPrefab);
         Card c = g.AddComponent(t) as Card;
         g.AddComponent<CardUI>();

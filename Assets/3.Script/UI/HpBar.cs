@@ -7,7 +7,7 @@ public class HpBar : MonoBehaviour
 {
     Vector3 distance;
 
-    [SerializeField] AbstractMortals target; //enemy
+    [SerializeField] Mortals target; //enemy
     [SerializeField] RectTransform rectT;
     [SerializeField] Slider slider;
     [SerializeField] Text hpText;

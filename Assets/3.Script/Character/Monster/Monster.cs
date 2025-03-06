@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractMonster : AbstractMortals
+public abstract class Monster : Mortals
 {
     public int attackValue;
     public virtual void Behave() 

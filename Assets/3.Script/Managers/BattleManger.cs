@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class BattleManger : Singleton<BattleManger>
 {
-    public List<AbstractMonster> monsters = new List<AbstractMonster>();
+    public List<Monster> monsters = new List<Monster>();
     public int turn = 0;
     public bool isPlayerTurn = false;
     bool isOnGoing = false;
@@ -14,18 +14,18 @@ public class BattleManger : Singleton<BattleManger>
     {
         if (isOnGoing)
         {
-            foreach (AbstractMonster mob in monsters)
+            foreach (Monster mob in monsters)
             {
                 if (!mob.IsDead) return;
             }
             EndBattle();
         }
     }
-    public void PrepareBattle(AbstractRoom room)
+    public void PrepareBattle(Room room)
     {
         foreach(GameObject obj in room.contents)
         {
-            obj.TryGetComponent(out AbstractMonster mob);
+            obj.TryGetComponent(out Monster mob);
             GameObject _hpBar = Instantiate(hpBar, hpBarPanel.transform);
             _hpBar.TryGetComponent(out HpBar bar);
             bar.Init(obj);
@@ -56,7 +56,7 @@ public class BattleManger : Singleton<BattleManger>
     }
     public void ActMonsters()
     {
-        foreach(AbstractMonster mob in monsters)
+        foreach(Monster mob in monsters)
         {
             mob.LoseBlock(mob.Block);
             mob.Behave();

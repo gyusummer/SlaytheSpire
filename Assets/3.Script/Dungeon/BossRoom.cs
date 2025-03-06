@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossRoom : AbstractRoom
+public class BossRoom : Room
 {
     protected override void Awake()
     {
-        upRoom = new List<AbstractRoom>();
-        downRoom = new List<AbstractRoom>();
+        upRoom = new List<Room>();
+        downRoom = new List<Room>();
     }
     private new void Start()
     {

@@ -15,15 +15,15 @@ public class Ironclad : Player
         CurHp = MaxHp;
         for(int n = 0; n < 5; n++)
         {
-            AddCardTo(CardMaker.Instance.MakeACard((int)RedCommonCard.Strike), Deck, true);
+            AddCardTo(CardMaker.Instance.MakeACard(RedCommonCard.Strike), Deck, true);
         }
         for (int n = 0; n < 4; n++)
         {
-            AddCardTo(CardMaker.Instance.MakeACard((int)RedCommonCard.Defend), Deck, true);
+            AddCardTo(CardMaker.Instance.MakeACard(RedCommonCard.Defend), Deck, true);
         }
         for (int n = 0; n < 1; n++)
         {
-            AddCardTo(CardMaker.Instance.MakeACard((int)RedCommonCard.Bash), Deck, true);
+            AddCardTo(CardMaker.Instance.MakeACard(RedCommonCard.Bash), Deck, true);
         }
         GetRelic(RelicMaker.Instance.MakeARelic(0));
     }

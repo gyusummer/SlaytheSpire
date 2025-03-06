@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SlimeBoss : AbstractMonster
+public class SlimeBoss : Monster
 {
     private void Awake()
     {

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbstractMortals : MonoBehaviour
+public abstract class Mortals : MonoBehaviour
 {
     public event Action OnHpChanged;
     private int maxHp;
@@ -44,7 +44,7 @@ public abstract class AbstractMortals : MonoBehaviour
         }
     }
     public int Block { get; protected set; } = 0;
-    public List<AbstractStatus> StatusList { get; protected set; } = new List<AbstractStatus>();
+    public List<Status> StatusList { get; protected set; } = new List<Status>();
     public bool IsDead{ get; protected set; } = false;
     protected virtual void Die()
     {
@@ -75,7 +75,7 @@ public abstract class AbstractMortals : MonoBehaviour
     }
     public void GetStatus(int value, Statuses s)
     {
-        StatusList.Add(new AbstractStatus());
+        StatusList.Add(new Status());
     }
     public void GetHeal(int value)
     {

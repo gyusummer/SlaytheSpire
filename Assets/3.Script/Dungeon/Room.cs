@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
+public class Room : MonoBehaviour , IEquatable<Room>
 {
     [SerializeField]
     protected int posX;
@@ -16,17 +16,17 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
     public RoomType roomType;
     public List<GameObject> contents;
 
-    protected List<AbstractRoom> upRoom;
-    protected List<AbstractRoom> downRoom;
+    protected List<Room> upRoom;
+    protected List<Room> downRoom;
 
-    public List<AbstractRoom> UpRoom => upRoom;
-    public List<AbstractRoom> DownRoom => downRoom;
+    public List<Room> UpRoom => upRoom;
+    public List<Room> DownRoom => downRoom;
 
     protected virtual void Awake()
     {
         contents = new List<GameObject>();
-        upRoom = new List<AbstractRoom>();
-        downRoom = new List<AbstractRoom>();
+        upRoom = new List<Room>();
+        downRoom = new List<Room>();
     }
     protected void Start()
     {
@@ -43,7 +43,7 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
     }
     public virtual void EnterPlayer()
     {
-        if(true) // TODO: if (!Player.Instance.isBattle) 테스트용이니 수정할것
+        if(true) // TODO: (!Player.Instance.isBattle) 
         {
             if(true) //(downRoom.Contains(Player.Instance.curRoom))
             {
@@ -60,7 +60,7 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
         child.TryGetComponent(out Animator anim);
         anim.SetTrigger("Enter");
     }
-    public void CopyNode(DungeonNode node, AbstractRoom[,] room_arr)
+    public void CopyNode(DungeonNode node, Room[,] room_arr)
     {
         posX = node.X;
         posY = node.Y;
@@ -70,7 +70,7 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
             room_arr[n.X, n.Y].AddDownStair(this);
         }
     }
-    public bool HasUpStair(AbstractRoom other)
+    public bool HasUpStair(Room other)
     {
         bool has = false;
 
@@ -79,23 +79,23 @@ public class AbstractRoom : MonoBehaviour , IEquatable<AbstractRoom>
         return has;
     }
 
-    public void AddUpStair(AbstractRoom up)
+    public void AddUpStair(Room up)
     {
         if(!upRoom.Contains(up)) upRoom.Add(up);
     }
-    public void AddDownStair(AbstractRoom down)
+    public void AddDownStair(Room down)
     {
         if (!downRoom.Contains(down)) downRoom.Add(down);
     }
-    public void SubUpStair(AbstractRoom up)
+    public void SubUpStair(Room up)
     {
         if (upRoom.Contains(up)) upRoom.Remove(up);
     }
-    public void SubDownStair(AbstractRoom down)
+    public void SubDownStair(Room down)
     {
         if (downRoom.Contains(down)) downRoom.Remove(down);
     }
-    public bool Equals(AbstractRoom other)
+    public bool Equals(Room other)
     {
         if (posX == other.posX && posY == other.posY)
         {

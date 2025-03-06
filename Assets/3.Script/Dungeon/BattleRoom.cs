@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleRoom : AbstractRoom
+public class BattleRoom : Room
 {
     private new void Awake()
     {

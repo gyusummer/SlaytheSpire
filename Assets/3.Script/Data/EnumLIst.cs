@@ -62,6 +62,7 @@ public enum TargetTypes
 }
 public enum RedCommonCard
 {
+    Random = -1,
     Strike,
     Defend,
     Bash
