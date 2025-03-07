@@ -21,6 +21,7 @@ public class MapUI : MonoBehaviour
 
     private void Update()
     {
+        // 갈 수 있는 방 아이콘 크기 키워주기
         if(room_list != null)
         {
             for(int n = 0; n < room_list.Count - 1; n++) // 보스룸 제외를 위해 -1

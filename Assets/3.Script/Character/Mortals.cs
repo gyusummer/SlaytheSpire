@@ -79,23 +79,27 @@ public abstract class Mortals : MonoBehaviour
     }
     public void GetStatus(int value, Statuses id)
     {
-        //이미 가졌다면
         Type sType = StatusDictionary.Dict[id];
+        Status exist = null;
         foreach(Status s in StatusList)
         {
             if(s.GetType() == sType)
             {
-                s.stack += value;
-                OnStatusChanged?.Invoke();
-                return;
+                exist = s;
+                break;
             }
         }
-        // 가지지 않았다면
-        Status status = (Status)Activator.CreateInstance(sType, new object[] { this });
-        status.stack = value;
-        StatusList.Add(status);
-        status.GetEffect();
-
+        if (exist != null)
+        {
+            exist.stack += value;
+        }
+        else
+        {
+            Status status = (Status)Activator.CreateInstance(sType, new Mortals[] { this });
+            status.stack = value;
+            StatusList.Add(status);
+            status.GetEffect();
+        }
         OnStatusChanged?.Invoke();
     }
     public void GetHeal(int value)

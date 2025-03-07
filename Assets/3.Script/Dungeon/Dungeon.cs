@@ -11,8 +11,8 @@ public class Dungeon : Object
     private List<Room> room_list = new List<Room>();
     public GameObject Room_Prefab;
     public GameObject BossRoom_Prefab;
-    public Room firstRoom;
-    
+    public Room firstRoom = null;
+
     public List<Room> Rooms
     {
         get
@@ -28,7 +28,7 @@ public class Dungeon : Object
         room_arr = new Room[width, height];
         Room_Prefab = prefab;
         BossRoom_Prefab = bossRoomPrefab;
-        firstRoom = _firstRoom;
+        //firstRoom = _firstRoom;
     }
     public Dungeon Generate(List<int[]> paths)
     {

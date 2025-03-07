@@ -43,9 +43,9 @@ public class Room : MonoBehaviour , IEquatable<Room>
     }
     public virtual void EnterPlayer()
     {
-        if(true) // TODO: (!Player.Instance.isBattle) 
+        if(!Player.Instance.isBattle) 
         {
-            if(true) //(downRoom.Contains(Player.Instance.curRoom))
+            if(downRoom.Contains(Player.Instance.curRoom))
             {
                 DrawCircle();
                 Player.Instance.curRoom = this;

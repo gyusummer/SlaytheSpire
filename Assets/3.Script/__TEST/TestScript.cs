@@ -9,6 +9,7 @@ public class TestScript : MonoBehaviour
     public GameObject cardPrefab;
     public GameObject canvas;
     int seed;
+
     private void Start()
     {
         seed = Environment.TickCount;

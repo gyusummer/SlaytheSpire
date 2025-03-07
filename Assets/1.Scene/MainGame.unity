@@ -2164,6 +2164,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   relicPrefab: {fileID: 8154728384680460599, guid: e5c95787c08deda41bed11bf01a9e795, type: 3}
+--- !u!1 &1089935035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893030581249525620, guid: 3032435efa906bb4cb4cbcb91ef9bc67, type: 3}
+  m_PrefabInstance: {fileID: 8218936604115738681}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1117496624
 GameObject:
   m_ObjectHideFlags: 0
@@ -4195,6 +4200,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8855569956640507848, guid: bdcc2ec30bc030245a473bcb48f82780, type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 1089935035}
+    - target: {fileID: 8855569956640507848, guid: bdcc2ec30bc030245a473bcb48f82780, type: 3}
       propertyPath: DeckUI
       value: 
       objectReference: {fileID: 4326555384718084564}
@@ -4977,7 +4986,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7893030581249525620, guid: 3032435efa906bb4cb4cbcb91ef9bc67, type: 3}
       propertyPath: m_Name
-      value: HpBar
+      value: HpBar_Player's
       objectReference: {fileID: 0}
     - target: {fileID: 9020182775613349137, guid: 3032435efa906bb4cb4cbcb91ef9bc67, type: 3}
       propertyPath: target

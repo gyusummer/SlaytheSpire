@@ -20,7 +20,8 @@ public class Player : Mortals
     public bool isBattle;
     public int x = -1, y = -1;
     public Room curRoom;
-    public Card selectedCard;
+    [HideInInspector]public Card selectedCard;
+    public GameObject hpBar;
     public int Money
     {
         get

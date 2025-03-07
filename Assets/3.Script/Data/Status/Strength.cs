@@ -17,6 +17,11 @@ public class Strength : Status
         host.OnAttack += IncreaseAttackDamgage;
     }
 
+    public override void LoseEffect()
+    {
+        //throw new System.NotImplementedException();
+    }
+
     int IncreaseAttackDamgage(int baseValue)
     {
         return baseValue + stack;
