@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Vulnerable : Status
 {
@@ -12,16 +13,16 @@ public class Vulnerable : Status
     //    description = "";
     //    imagePath = "Powers.png[Vulnerable]";
     //}
-    public Vulnerable(Mortals mortals)
+    public Vulnerable(Mortal mortals)
     {
         //Debug.Log("Ãë¾à 1p");
         description = "";
         imagePath = "Powers.png[Vulnerable]";
         host = mortals;
-    }
-    IEnumerator GetImage()
-    {
-        yield return Addressables.LoadAssetAsync<Image>(imagePath).Completed += (op) => image = op.Result;
+        AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(imagePath);
+        image = handle.WaitForCompletion();
+        Addressables.Release(handle);
+        host.OnTurnEnd += LoseStack;
     }
     public override void GetEffect()
     {
@@ -30,6 +31,11 @@ public class Vulnerable : Status
     public override void LoseEffect()
     {
         host.OnGetDamage -= GetMoreDamage;
+        host.OnTurnEnd -= LoseStack;
+    }
+    public void LoseStack()
+    {
+        host.LoseStatus(1,this);
     }
     int GetMoreDamage(int baseValue)
     {

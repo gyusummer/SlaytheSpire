@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : Mortals
+public class Player : Mortal
 {
     public Action<Player> OnBattleStart;
 
@@ -220,6 +220,11 @@ public class Player : Mortals
         isBattle = true;
         MakeDrawPile();
         OnBattleStart?.Invoke(this);
+    }
+    public override void EndTurn()
+    {
+        DiscardAll();
+        base.EndTurn();
     }
     public void EndBattle()
     {

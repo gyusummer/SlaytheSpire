@@ -7,12 +7,14 @@ public class HpBar : MonoBehaviour
 {
     Vector3 distance;
 
-    [SerializeField] Mortals target;
+    [SerializeField] Mortal target;
     [SerializeField] RectTransform rectT;
     [SerializeField] Slider slider;
     [SerializeField] Text hpText;
     [SerializeField] Text blockText;
     [SerializeField] GameObject blockImage;
+    [SerializeField] GameObject StatusesPanel;
+    [SerializeField] GameObject Status_Prefab;
     public void Init(GameObject gameObject)
     {
         gameObject.TryGetComponent(out target);
@@ -27,6 +29,8 @@ public class HpBar : MonoBehaviour
         rectT.sizeDelta = new Vector2(sizeX, rectT.sizeDelta.y);
         Vector3 scrPos = Camera.main.WorldToScreenPoint(target.transform.position - distance);
         rectT.position = scrPos;
+
+        target.OnStatusChanged += UpdateStatuses;
     }
     private void Update()
     {
@@ -49,6 +53,31 @@ public class HpBar : MonoBehaviour
     }
     public void UpdateStatuses()
     {
-        target.StatusList
+        int statusCount = target.StatusList.Count;
+        int iconCount = StatusesPanel.transform.childCount;
+        if (iconCount < statusCount)
+        {
+            int lack = statusCount - iconCount;
+            for (int n = 0; n < lack; n++)
+            {
+                Instantiate(Status_Prefab, StatusesPanel.transform);
+            }
+        }
+        else if (iconCount > statusCount)
+        {
+            int excess = iconCount - statusCount;
+            for (int n = iconCount - 1; n > iconCount - 1 - excess; n--)
+            {
+                StatusesPanel.transform.GetChild(n).gameObject.SetActive(false);
+            }
+        }
+        for (int n = 0; n < statusCount; n++)
+        {
+            GameObject s = StatusesPanel.transform.GetChild(n).gameObject;
+            Image img = s.transform.GetComponentInChildren<Image>();
+            Text text = img.transform.GetComponentInChildren<Text>();
+            img.sprite = target.StatusList[n].image;
+            text.text = target.StatusList[n].stack.ToString();
+        }
     }
 }

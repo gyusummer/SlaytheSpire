@@ -63,8 +63,8 @@ public abstract class Card : MonoBehaviour
     public abstract void PredictValue();
     public virtual void PredictValue(Monster target) { }
     public virtual void Play() { }
-    public virtual void Play(Mortals target) { }
-    public virtual void Play(List<Mortals> targets) { }
+    public virtual void Play(Mortal target) { }
+    public virtual void Play(List<Mortal> targets) { }
     public virtual Card MakeReplica()
     {
         return (Card)Instantiate(gameObject);

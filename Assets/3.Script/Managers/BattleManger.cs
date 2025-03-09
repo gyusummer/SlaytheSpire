@@ -50,7 +50,7 @@ public class BattleManger : Singleton<BattleManger>
         if (isPlayerTurn)
         {
             isPlayerTurn = false;
-            Player.Instance.DiscardAll();
+            Player.Instance.EndTurn();
             ActMonsters();
         }
     }
@@ -60,6 +60,7 @@ public class BattleManger : Singleton<BattleManger>
         {
             mob.LoseBlock(mob.Block);
             mob.Behave();
+            mob.EndTurn();
         }
         PreparePlayerTurn();
     }
@@ -69,6 +70,18 @@ public class BattleManger : Singleton<BattleManger>
         isPlayerTurn = false;
         BattleUI.SetActive(false);
         Player.Instance.EndBattle();
+    }
+    public static bool FindTarget()
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        if (rayHit.transform != null)
+        {
+            if (rayHit.transform.TryGetComponent(out Monster mob))
+            {
+                return true;
+            }
+        }
+        return false;
     }
     public static bool FindTarget(out Monster target)
     {
@@ -82,18 +95,6 @@ public class BattleManger : Singleton<BattleManger>
             }
         }
         target = null;
-        return false;
-    }
-    public static bool FindTarget()
-    {
-        RaycastHit2D rayHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-        if (rayHit.transform != null)
-        {
-            if (rayHit.transform.TryGetComponent(out Monster mob))
-            {
-                return true;
-            }
-        }
         return false;
     }
 }

@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Mortals : MonoBehaviour
+public abstract class Mortal : MonoBehaviour
 {
     public event Action OnHpChanged;
     public event Action OnStatusChanged;
+    public event Action OnTurnEnd;
     public Func<int, int> OnAttack;
     public Func<int, int> OnGetDamage;
 
@@ -95,15 +96,29 @@ public abstract class Mortals : MonoBehaviour
         }
         else
         {
-            Status status = (Status)Activator.CreateInstance(sType, new Mortals[] { this });
+            Status status = (Status)Activator.CreateInstance(sType, new Mortal[] { this });
             status.stack = value;
             StatusList.Add(status);
             status.GetEffect();
         }
         OnStatusChanged?.Invoke();
     }
+    public void LoseStatus(int value, Status status)
+    {
+        status.stack -= value;
+        if (status.stack <= 0)
+        {
+            status.LoseEffect();
+            StatusList.Remove(status);
+        }
+        OnStatusChanged?.Invoke();
+    }
     public void GetHeal(int value)
     {
         CurHp += value;
+    }
+    public virtual void EndTurn()
+    {
+        OnTurnEnd?.Invoke();
     }
 }

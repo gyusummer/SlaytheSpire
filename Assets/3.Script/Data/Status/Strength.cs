@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Strength : Status
 {
-    public Strength(Mortals mortals)
+    public Strength(Mortal mortals)
     {
         Debug.Log("Èû");
         description = "";

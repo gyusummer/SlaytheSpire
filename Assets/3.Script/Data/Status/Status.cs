@@ -9,8 +9,8 @@ public abstract class Status : IEquatable<Status>
     public int stack;
     public string description;
     protected string imagePath;
-    public Image image = null;
-    public Mortals host;
+    public Sprite image = null;
+    public Mortal host;
     public abstract void GetEffect();
     public abstract void LoseEffect();
 

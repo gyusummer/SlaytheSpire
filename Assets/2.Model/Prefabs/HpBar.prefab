@@ -604,3 +604,5 @@ MonoBehaviour:
   hpText: {fileID: 2687230493018224767}
   blockText: {fileID: 2409571274298101876}
   blockImage: {fileID: 3135890456487382990}
+  StatusesPanel: {fileID: 6188197949060421285}
+  Status_Prefab: {fileID: 4856528009508573382, guid: eedb4d8252e50c04fa5efa0e0d3ec6ef, type: 3}

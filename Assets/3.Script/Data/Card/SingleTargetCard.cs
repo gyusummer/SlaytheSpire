@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class SingleTargetCard : Card
 {
-    public abstract override void Play(Mortals mob);
+    public abstract override void Play(Mortal mob);
     public override void PredictValue()
     {
         IndicatedValue = mainValue;

@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO: 아이콘이랑 엣지 풀링으로 만들것
-
 public class MapUI : MonoBehaviour
 {
     public GameObject Room_Button_Prefabs;

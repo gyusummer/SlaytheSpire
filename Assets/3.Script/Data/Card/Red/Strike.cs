@@ -23,7 +23,7 @@ public class Strike : SingleTargetCard
         SetDescription();
     }
 
-    public override void Play(Mortals mob)
+    public override void Play(Mortal mob)
     {
         mob.GetDamage(IndicatedValue);
     }
