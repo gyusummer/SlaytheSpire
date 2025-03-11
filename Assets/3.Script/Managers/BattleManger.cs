@@ -69,6 +69,7 @@ public class BattleManger : Singleton<BattleManger>
         isOnGoing = false;
         isPlayerTurn = false;
         BattleUI.SetActive(false);
+        DungeonUIManager.Instance.ToggleMap();
         Player.Instance.EndBattle();
     }
     public static bool FindTarget()

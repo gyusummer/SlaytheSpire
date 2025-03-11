@@ -51,6 +51,10 @@ public class HpBar : MonoBehaviour
         hpText.text = $"{target.CurHp}/{target.MaxHp}";
         blockText.text = $"{target.Block}";
     }
+    private void OnDestroy()
+    {
+        target.OnStatusChanged -= UpdateStatuses;
+    }
     public void UpdateStatuses()
     {
         int statusCount = target.StatusList.Count;

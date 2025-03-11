@@ -15,18 +15,19 @@ public class DungeonMaster : Singleton<DungeonMaster>
     }
     public void PrepareRoom(Room room)
     {
-        // TODO: 주석 지우기
-        //Transition_img.transform.position = new Vector2(960, 1620);
-        //Transition_img.transform.DOMoveY(540, 1f)
-        //    .OnStart(() =>
-        //    {
-        //        Transition_img.gameObject.SetActive(true);
-        //    })
-        //    .OnComplete(() =>
-        //    {
-        FillContents(room);
-        //    TransitionOut();
-        //});
+        // TODO: 주석처리만 지우기
+        Transition_img.transform.position = new Vector2(960, 1620);
+        Transition_img.transform.DOMoveY(540, 1f)
+            .OnStart(() =>
+            {
+                Transition_img.gameObject.SetActive(true);
+            })
+            .OnComplete(() =>
+            {
+                DungeonUIManager.Instance.ToggleMap();
+                FillContents(room);
+                TransitionOut();
+            });
     }
     void FillContents(Room room)
     {
