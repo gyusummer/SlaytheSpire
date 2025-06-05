@@ -8,6 +8,7 @@ using DG.Tweening;
 public class MySceneManager : Singleton<MySceneManager>
 {
     public Image Transition_img;
+    public float TimeDuration = 1f;
     private new void Awake()
     {
         base.Awake();
@@ -22,7 +23,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public void TransitionIn(String sceneName)
     {
         Transition_img.transform.position = new Vector2(960,1620);
-        Transition_img.transform.DOMoveY(540, 1f)
+        Transition_img.transform.DOMoveY(540, TimeDuration)
             .OnStart(() =>
             {
                 Transition_img.gameObject.SetActive(true);
@@ -35,7 +36,7 @@ public class MySceneManager : Singleton<MySceneManager>
     public void TransitionOut(Scene scene, LoadSceneMode mode)
     {
         Transition_img.transform.position = new Vector2(960,540);
-        Transition_img.transform.DOMoveY(1620f, 1f).OnComplete(() =>
+        Transition_img.transform.DOMoveY(1620f, TimeDuration).OnComplete(() =>
         {
             Transition_img.gameObject.SetActive(false);
         });
